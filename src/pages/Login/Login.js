@@ -1,8 +1,12 @@
 import React from "react";
-
 import picture from '../../assets/img/dogs/image3.jpeg';
+import * as routes from '../../constants/routes';
+import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {ActionSuccessLogin} from "../../actions/auth";
+import {dispatchRedirectToPath} from "../../actions/redirect";
 
-export class Login extends React.Component {
+class _Login extends React.Component {
     render() {
         return (
             <div className="row">
@@ -19,7 +23,9 @@ export class Login extends React.Component {
                         <div className="text-center">
                             <h4 className="text-dark mb-4">Welcome Back!</h4>
                         </div>
-                        <form className="user">
+                        <form className="user" onSubmit={() => {
+                            this.props.login();
+                        }}>
                             <div className="form-group mb-3">
                                 <input
                                     className="form-control form-control-user"
@@ -58,10 +64,7 @@ export class Login extends React.Component {
                             <button className="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
                         </form>
                         <div className="text-center">
-                            <a className="small" href="https://google.com">Forgot Password?</a>
-                        </div>
-                        <div className="text-center">
-                            <a className="small" href="https://google.com">Create an Account!</a>
+                            <Link className="small" to={routes.Register}>Create an Account!</Link>
                         </div>
                     </div>
                 </div>
@@ -69,3 +72,16 @@ export class Login extends React.Component {
         );
     }
 }
+
+const mapStateToProps = ({auth}) => ({auth});
+const mapDispatchToProps = (dispatch) => ({
+    login: () => {
+        dispatch({type: ActionSuccessLogin, token: 'kek'});
+        dispatch(dispatchRedirectToPath(routes.Profile));
+    },
+});
+
+export const Login = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(_Login);
