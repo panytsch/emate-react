@@ -2,6 +2,7 @@ import {Provider} from "react-redux";
 import {store} from "./store";
 import {Redirect, Route, Switch} from "react-router";
 import {BrowserRouter} from "react-router-dom";
+import React from "react";
 
 import {AuthLayout} from "./components/layouts/auth/AuthLayout";
 import * as route from './constants/routes';

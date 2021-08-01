@@ -9,3 +9,8 @@ insert_final_newline = true
 end_of_line = lf
 # editorconfig-tools is unable to ignore longs strings or urls
 max_line_length = off
+
+[*.js]
+ij_javascript_enforce_trailing_comma = whenmultiline
+ij_javascript_force_quote_style = true
+ij_javascript_use_double_quotes = false
