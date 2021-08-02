@@ -6,8 +6,8 @@ import React from "react";
 
 import {AuthLayout} from "./components/layouts/auth/AuthLayout";
 import * as route from './constants/routes';
-import {Login} from "./pages/Login/Login";
-import {Register} from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 import {MainLayout} from "./components/layouts/main/MainLayout";
 import {Profile} from "./pages/profile/Profile";
 

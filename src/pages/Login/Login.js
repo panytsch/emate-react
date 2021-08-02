@@ -7,7 +7,7 @@ import {ActionSuccessLogin} from '../../actions/auth';
 import {dispatchRedirectToPath} from '../../actions/redirect';
 import PropTypes from 'prop-types';
 
-class _Login extends React.Component {
+class Login extends React.Component {
   render() {
     return (
       <div className="row">
@@ -82,11 +82,11 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export const Login = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(_Login);
+)(Login);
 
-_Login.propTypes = {
+Login.propTypes = {
   login: PropTypes.any,
 }
