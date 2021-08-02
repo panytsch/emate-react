@@ -1,43 +1,46 @@
-import {Provider} from "react-redux";
-import {store} from "./store";
-import {Redirect, Route, Switch} from "react-router";
-import {BrowserRouter} from "react-router-dom";
-import React from "react";
+import {Provider} from 'react-redux';
+import {store} from './store';
+import {Redirect, Route, Switch} from 'react-router';
+import {BrowserRouter} from 'react-router-dom';
+import React from 'react';
 
-import {AuthLayout} from "./components/layouts/auth/AuthLayout";
+import {AuthLayout} from './components/layouts/auth/AuthLayout';
 import * as route from './constants/routes';
-import Login from "./pages/Login/Login";
-import Register from "./pages/Register/Register";
-import {MainLayout} from "./components/layouts/main/MainLayout";
-import {Profile} from "./pages/profile/Profile";
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import {MainLayout} from './components/layouts/main/MainLayout';
+import {Profile} from './pages/profile/Profile';
+import LoaderLayout from './components/layouts/loader/LoaderLayout';
 
 function App() {
-    return (
-        <Provider store={store}>
-            <BrowserRouter>
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <LoaderLayout>
+            <Route exact path="/">
+              <Redirect to={route.Login}/>
+            </Route>
+            <Route exact path={[route.Login, route.Register]}>
+              <AuthLayout>
                 <Switch>
-                    <Route exact path='/'>
-                        <Redirect to={route.Login}/>
-                    </Route>
-                    <Route exact path={[route.Login, route.Register]}>
-                        <AuthLayout>
-                            <Switch>
-                                <Route path={route.Login} exact component={Login}/>
-                                <Route path={route.Register} exact component={Register}/>
-                            </Switch>
-                        </AuthLayout>
-                    </Route>
-                    <Route>
-                        <MainLayout>
-                            <Switch>
-                                <Route path={route.Profile} exact component={Profile}/>
-                            </Switch>
-                        </MainLayout>
-                    </Route>
+                  <Route path={route.Login} exact component={Login}/>
+                  <Route path={route.Register} exact component={Register}/>
                 </Switch>
-            </BrowserRouter>
-        </Provider>
-    );
+              </AuthLayout>
+            </Route>
+            <Route exact path={[route.Profile]}>
+              <MainLayout>
+                <Switch>
+                  <Route path={route.Profile} exact component={Profile}/>
+                </Switch>
+              </MainLayout>
+            </Route>
+          </LoaderLayout>
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  );
 }
 
 export default App;
