@@ -1,7 +1,7 @@
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {Redirect, Route, Switch} from 'react-router';
-import {BrowserRouter} from 'react-router-dom';
+import {Router} from 'react-router-dom';
 import React from 'react';
 
 import {AuthLayout} from './components/layouts/auth/AuthLayout';
@@ -11,11 +11,12 @@ import Register from './pages/Register/Register';
 import {MainLayout} from './components/layouts/main/MainLayout';
 import {Profile} from './pages/profile/Profile';
 import LoaderLayout from './components/layouts/loader/LoaderLayout';
+import {history} from './services/history';
 
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
           <LoaderLayout>
             <Route exact path="/">
@@ -38,7 +39,7 @@ function App() {
             </Route>
           </LoaderLayout>
         </Switch>
-      </BrowserRouter>
+      </Router>
     </Provider>
   );
 }

@@ -1,21 +1,16 @@
 import {CleanPathAction, RedirectToAction} from "../actions/redirect";
-import createHistory from "history/createBrowserHistory";
+import {history} from '../services/history';
 
 const initialState = {};
-const history = createHistory();
 
 export const redirect = (state = initialState, action) => {
     switch (action.type) {
         case RedirectToAction:
             history.push(action.path);
-            return {
-                ...state,
-            };
+            return {...state};
         case CleanPathAction:
-            return {
-                ...state,
-            };
-        default:
+          return {...state};
+      default:
             return {...state};
     }
 }
