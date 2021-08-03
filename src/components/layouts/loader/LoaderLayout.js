@@ -25,5 +25,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoaderLayout);
 
 LoaderLayout.propTypes = {
   isLoaderEnabled: PropTypes.bool,
-  children: PropTypes.bool,
+  children: PropTypes.any,
 };

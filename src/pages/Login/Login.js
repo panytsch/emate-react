@@ -4,7 +4,6 @@ import * as routes from '../../constants/routes';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {ActionSuccessLogin} from '../../actions/auth';
-import {dispatchRedirectToPath} from '../../actions/redirect';
 import PropTypes from 'prop-types';
 
 class Login extends React.Component {
@@ -78,7 +77,6 @@ const mapStateToProps = ({auth}) => ({auth});
 const mapDispatchToProps = (dispatch) => ({
   login: () => {
     dispatch({type: ActionSuccessLogin, token: 'kek'});
-    dispatch(dispatchRedirectToPath(routes.Profile));
   },
 });
 
