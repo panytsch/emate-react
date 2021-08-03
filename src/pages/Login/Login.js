@@ -3,11 +3,17 @@ import picture from '../../assets/img/dogs/image3.jpeg';
 import * as routes from '../../constants/routes';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {ActionSuccessLogin} from '../../actions/auth';
+import {loginUser} from '../../actions/auth';
 import PropTypes from 'prop-types';
 
 class Login extends React.Component {
+  state = {
+    email: '',
+    password: '',
+  };
+
   render() {
+    const {email, password} = this.state;
     return (
       <div className="row">
         <div className="col-lg-6 d-none d-lg-flex">
@@ -23,8 +29,9 @@ class Login extends React.Component {
             <div className="text-center">
               <h4 className="text-dark mb-4">Welcome Back!</h4>
             </div>
-            <form className="user" onSubmit={() => {
-              this.props.login();
+            <form className="user" onSubmit={(event) => {
+              event.preventDefault();
+              this.props.login(email, password);
             }}>
               <div className="form-group mb-3">
                 <input
@@ -32,7 +39,10 @@ class Login extends React.Component {
                   type="email"
                   id="exampleInputEmail"
                   aria-describedby="emailHelp"
-                  placeholder="Enter Email Address..." name="email"
+                  placeholder="Enter Email Address..."
+                  name="email"
+                  value={email}
+                  onChange={(event) => this.setState({...this.state, email: event.target.value})}
                 />
               </div>
               <div className="form-group mb-3">
@@ -42,6 +52,8 @@ class Login extends React.Component {
                   id="exampleInputPassword"
                   placeholder="Password"
                   name="password"
+                  value={password}
+                  onChange={(event) => this.setState({...this.state, password: event.target.value})}
                 />
               </div>
               <div className="form-group mb-3">
@@ -75,8 +87,8 @@ class Login extends React.Component {
 
 const mapStateToProps = ({auth}) => ({auth});
 const mapDispatchToProps = (dispatch) => ({
-  login: () => {
-    dispatch({type: ActionSuccessLogin, token: 'kek'});
+  login: (email, password) => {
+    dispatch(loginUser(email, password));
   },
 });
 

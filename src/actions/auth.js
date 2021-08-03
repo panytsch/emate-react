@@ -26,3 +26,21 @@ export const registerUser = (email, password1, password2) => (dispatch) => {
       dispatch(dispatchDisableLoader());
     });
 };
+
+export const loginUser = (email, password) => (dispatch) => {
+  dispatch(dispatchEnableLoader());
+  return axios
+    .post(`${apiPath}/login/`, {email, password, username: email})
+    .then(({data}) => {
+      if (data.key) {
+        dispatch({
+          type: ActionSuccessLogin,
+          token: data.key,
+        });
+        history.push(routes.Profile);
+      }
+    })
+    .finally(() => {
+      dispatch(dispatchDisableLoader());
+    });
+};
