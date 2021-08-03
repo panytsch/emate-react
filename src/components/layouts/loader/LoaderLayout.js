@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {Loader} from '../../loader/Loader';
-import './loader-layout.css';
+import './loader-layout.scss';
 
 const LoaderLayout = ({isLoaderEnabled, children}) => (
   <>
