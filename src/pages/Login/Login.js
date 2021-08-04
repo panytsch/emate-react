@@ -6,23 +6,30 @@ import {connect} from 'react-redux';
 import {loginUser} from '../../actions/auth';
 import PropTypes from 'prop-types';
 
+import FormImage from '../../components/layouts/form-components/FormComponents';
+
 class Login extends React.Component {
-  state = {
-    email: '',
-    password: '',
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+    
 
   render() {
     const {email, password} = this.state;
     return (
       <div className="row">
         <div className="col-lg-6 d-none d-lg-flex">
-          <div
+          {/* <div
             className="flex-grow-1 bg-login-image"
             style={{
               backgroundImage: `url(${picture})`,
             }}
-          />
+          /> */}
+          <FormImage imgClass="bg-login-image" imgUrl={picture}/>
         </div>
         <div className="col-lg-6">
           <div className="p-5">

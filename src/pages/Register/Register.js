@@ -6,24 +6,25 @@ import {registerUser} from '../../actions/auth';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import FormImage from '../../components/layouts/form-components/FormComponents';
+import FormInput from '../../components/layouts/form-components/FormComponents';
+
 export class Register extends React.Component {
-  state = {
+  constructor(props){
+    super(props);
+    this.state = {
     email: '',
     password1: '',
     password2: '',
   };
+}
 
   render() {
     const {email, password1, password2} = this.state;
     return (
       <div className="row">
         <div className="col-lg-5 d-none d-lg-flex">
-          <div
-            className="flex-grow-1 bg-register-image"
-            style={{
-              backgroundImage: `url(${picture}`,
-            }}
-          />
+          <FormImage imgClass="bg-register-image" imgUrl={picture}/>
         </div>
         <div className="col-lg-7">
           <div className="p-5">
@@ -35,38 +36,15 @@ export class Register extends React.Component {
               this.props.register(email, password1, password2);
             }}>
               <div className="form-group mb-3">
-                <input
-                  className="form-control form-control-user"
-                  type="email"
-                  aria-describedby="emailHelp"
-                  placeholder="Email Address"
-                  name="email"
-                  value={email}
-                  onChange={(event) => this.setState({...this.state, email: event.target.value})}
-                />
+                <FormInput typeInput="email"/>
               </div>
               <div className="row form-group mb-3">
                 <div className="col-sm-6 mb-3 mb-sm-0">
-                  <input
-                    className="form-control form-control-user"
-                    type="password"
-                    id="examplePasswordInput"
-                    placeholder="Password"
-                    name="password"
-                    value={password1}
-                    onChange={(event) => this.setState({...this.state, password1: event.target.value})}
-                  />
+                  
+                <FormInput typeInput="password"/>
                 </div>
                 <div className="col-sm-6">
-                  <input
-                    className="form-control form-control-user"
-                    type="password"
-                    id="exampleRepeatPasswordInput"
-                    placeholder="Repeat Password"
-                    name="password_repeat"
-                    value={password2}
-                    onChange={(event) => this.setState({...this.state, password2: event.target.value})}
-                  />
+                   <FormInput typeInput="passwordRepeat"/>
                 </div>
               </div>
               <button className="btn btn-primary d-block btn-user w-100" type="submit">
