@@ -5,30 +5,20 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {loginUser} from '../../actions/auth';
 import PropTypes from 'prop-types';
-
-import FormImage from '../../components/layouts/form-components/FormComponents';
+import FormInput from '../../components/layouts/form-components/FormInput'; 
+import FormImage from '../../components/layouts/form-components/FormImage';
 
 class Login extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
-  }
-    
+  state = {
+    email: '',
+    password: '',
+  };
 
   render() {
     const {email, password} = this.state;
     return (
       <div className="row">
         <div className="col-lg-6 d-none d-lg-flex">
-          {/* <div
-            className="flex-grow-1 bg-login-image"
-            style={{
-              backgroundImage: `url(${picture})`,
-            }}
-          /> */}
           <FormImage imgClass="bg-login-image" imgUrl={picture}/>
         </div>
         <div className="col-lg-6">
@@ -41,27 +31,18 @@ class Login extends React.Component {
               this.props.login(email, password);
             }}>
               <div className="form-group mb-3">
-                <input
-                  className="form-control form-control-user"
-                  type="email"
-                  id="exampleInputEmail"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter Email Address..."
-                  name="email"
-                  value={email}
-                  onChange={(event) => this.setState({...this.state, email: event.target.value})}
-                />
+                <FormInput 
+                    typeInput="email"
+                    value={email}
+                    onChange={(event) => this.setState({...this.state, email: event.target.value})}
+                  />
               </div>
               <div className="form-group mb-3">
-                <input
-                  className="form-control form-control-user"
-                  type="password"
-                  id="exampleInputPassword"
-                  placeholder="Password"
-                  name="password"
-                  value={password}
-                  onChange={(event) => this.setState({...this.state, password: event.target.value})}
-                />
+                <FormInput 
+                    typeInput="password"
+                    value={password}
+                    onChange={(event) => this.setState({...this.state, password: event.target.value})}
+                    />
               </div>
               <div className="form-group mb-3">
                 <div className="custom-control custom-checkbox small">
@@ -93,6 +74,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = ({auth}) => ({auth});
+
 const mapDispatchToProps = (dispatch) => ({
   login: (email, password) => {
     dispatch(loginUser(email, password));

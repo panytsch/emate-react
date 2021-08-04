@@ -5,19 +5,14 @@ import picture from '../../assets/img/dogs/image2.jpeg';
 import {registerUser} from '../../actions/auth';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-
-import FormImage from '../../components/layouts/form-components/FormComponents';
-import FormInput from '../../components/layouts/form-components/FormComponents';
-
+import FormInput from '../../components/layouts/form-components/FormInput'; 
+import FormImage from '../../components/layouts/form-components/FormImage';
 export class Register extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
+  state = {
     email: '',
     password1: '',
     password2: '',
   };
-}
 
   render() {
     const {email, password1, password2} = this.state;
@@ -36,15 +31,26 @@ export class Register extends React.Component {
               this.props.register(email, password1, password2);
             }}>
               <div className="form-group mb-3">
-                <FormInput typeInput="email"/>
+                <FormInput 
+                    typeInput="email"
+                    value={email}
+                    onChange={(event) => this.setState({...this.state, email: event.target.value})}
+                  />
               </div>
               <div className="row form-group mb-3">
                 <div className="col-sm-6 mb-3 mb-sm-0">
-                  
-                <FormInput typeInput="password"/>
+                  <FormInput 
+                    typeInput="password"
+                    value={password1}
+                    onChange={(event) => this.setState({...this.state, password1: event.target.value})}
+                    />
                 </div>
                 <div className="col-sm-6">
-                   <FormInput typeInput="passwordRepeat"/>
+                  <FormInput 
+                    typeInput="passwordRepeat"
+                    value={password2}
+                    onChange={(event) => this.setState({...this.state, password2: event.target.value})}
+                />
                 </div>
               </div>
               <button className="btn btn-primary d-block btn-user w-100" type="submit">

@@ -1,18 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const FormImage = ({imgClass,imgUrl}) =>{
-        // bg-login-image
-    let classNames = 'flex-grow-1 '+imgClass;
-    return(
-        <div
-            className={classNames}
-            style={{
-              backgroundImage: `url(${imgUrl})`,
-            }}
-          />
-    )
-}
 
 const FormInput = ({props={},typeInput}) => {
   const temporary ={
@@ -65,12 +53,8 @@ const FormInput = ({props={},typeInput}) => {
     )
 }
 
-export default {FormImage,FormInput};
-FormImage.propTypes = {
-  imgClass: PropTypes.any,
-  imgUrl: PropTypes.any
+export default FormInput;
 
-}
 FormInput.propTypes ={
   props: PropTypes.any,
   typeInput: PropTypes.any
