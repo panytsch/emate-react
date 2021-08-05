@@ -5,14 +5,20 @@ import picture from '../../assets/img/dogs/image2.jpeg';
 import {registerUser} from '../../actions/auth';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import FormInput from '../../components/layouts/form-components/FormInput'; 
-import FormImage from '../../components/layouts/form-components/FormImage';
+import FormInput from '../../components/layouts/FormInput/FormInput'; 
+import FormImage from '../../components/layouts/FormImage/FormImage';
+import FormButton from '../../components/layouts/FormButton/FormButton';
+
+
 export class Register extends React.Component {
-  state = {
-    email: '',
-    password1: '',
-    password2: '',
-  };
+  constructor(props){
+      super(props)
+      this.state = {
+      email: '',
+      password1: '',
+      password2: '',
+    };
+  }
 
   render() {
     const {email, password1, password2} = this.state;
@@ -53,9 +59,7 @@ export class Register extends React.Component {
                 />
                 </div>
               </div>
-              <button className="btn btn-primary d-block btn-user w-100" type="submit">
-                Register Account
-              </button>
+              <FormButton text="Register Account"/>
             </form>
             <div className="text-center">
               <Link className="small" to={routes.Login}>

@@ -7,13 +7,16 @@ const FormInput = ({props={},typeInput}) => {
     id: '',
     type: '',
     name: '',
+    classnames: '',
     placeholder: '',
-    ariaDescribedby: ''
+    ariaDescribedby: '',
+
   }
   switch (typeInput){
     case "email":
       temporary.type = "email";
       temporary.name="email";
+      temporary.classnames="form-control form-control-user";
       temporary.placeholder="Email Address";
       temporary.ariaDescribedby="emailHelp";
       break;
@@ -21,12 +24,19 @@ const FormInput = ({props={},typeInput}) => {
       temporary.id="examplePasswordInput";
       temporary.type="password";
       temporary.name="password";
+      temporary.classnames="form-control form-control-user";
       temporary.placeholder="Password";
+      break;
+    case "checkbox":
+      temporary.id="formCheck-1";
+      temporary.type="checkbox";
+      temporary.classnames="form-check-input custom-control-input";
       break;
     case "passwordRepeat":
       temporary.id="exampleRepeatPasswordInput";
       temporary.type="password";
       temporary.name="password_repeat";
+      temporary.classnames="form-control form-control-user";
       temporary.placeholder="Repeat Password";
       break;
     default:

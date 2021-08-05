@@ -5,14 +5,19 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {loginUser} from '../../actions/auth';
 import PropTypes from 'prop-types';
-import FormInput from '../../components/layouts/form-components/FormInput'; 
-import FormImage from '../../components/layouts/form-components/FormImage';
+import FormInput from '../../components/layouts/FormInput/FormInput'; 
+import FormImage from '../../components/layouts/FormImage/FormImage';
+import FormButton from '../../components/layouts/FormButton/FormButton';
+import FormLabel from '../../components/layouts/FormLabel/FormLabel';
 
 class Login extends React.Component {
-  state = {
-    email: '',
-    password: '',
-  };
+  constructor(props){
+    super(props)
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
 
   render() {
     const {email, password} = this.state;
@@ -47,21 +52,13 @@ class Login extends React.Component {
               <div className="form-group mb-3">
                 <div className="custom-control custom-checkbox small">
                   <div className="form-check">
-                    <input
-                      className="form-check-input custom-control-input"
-                      type="checkbox"
-                      id="formCheck-1"
-                    />
-                    <label
-                      className="form-check-label custom-control-label"
-                      htmlFor="formCheck-1"
-                    >
-                      Remember Me
-                    </label>
+                    <FormInput typeInput="checkbox"/>
+                    <FormLabel text="Remember Me"/>
+                    
                   </div>
                 </div>
               </div>
-              <button className="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
+               <FormButton text="Login"/>
             </form>
             <div className="text-center">
               <Link className="small" to={routes.Register}>Create an Account!</Link>
