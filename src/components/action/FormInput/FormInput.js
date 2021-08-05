@@ -44,7 +44,7 @@ const FormInput = ({ type }, props) => {
 
   return (
     <input
-      className="form-control form-control-user"
+      className={temporary.classnames}
       id={temporary.id}
       type={temporary.type}
       name={temporary.name}
@@ -57,5 +57,5 @@ const FormInput = ({ type }, props) => {
 export default FormInput;
 
 FormInput.propTypes = {
-  type: PropTypes.any,
+  type: PropTypes.string,
 };

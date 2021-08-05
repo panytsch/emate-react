@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/auth";
 import PropTypes from "prop-types";
-import FormInput from "../../components/FormInput/FormInput";
-import FormImage from "../../components/FormImage/FormImage";
-import FormButton from "../../components/FormButton/FormButton";
-import FormLabel from "../../components/FormLabel/FormLabel";
+import FormInput from "../../components/action/FormInput/FormInput";
+import FormImage from "../../components/action/FormImage/FormImage";
+import FormButton from "../../components/action/FormButton/FormButton";
+import FormLabel from "../../components/action/FormLabel/FormLabel";
 
 class Login extends React.Component {
   constructor(props) {
@@ -69,7 +69,7 @@ class Login extends React.Component {
               </div>
               <FormButton
                 text="Login"
-                classNames="btn-primary d-block btn-user w-100"
+                className="btn-primary d-block btn-user w-100"
               />
             </form>
             <div className="text-center">

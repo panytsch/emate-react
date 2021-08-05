@@ -5,9 +5,9 @@ import picture from "../../assets/img/dogs/image2.jpeg";
 import { registerUser } from "../../actions/auth";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import FormInput from "../../components/FormInput/FormInput";
-import FormImage from "../../components/FormImage/FormImage";
-import FormButton from "../../components/FormButton/FormButton";
+import FormInput from "../../components/action/FormInput/FormInput";
+import FormImage from "../../components/action/FormImage/FormImage";
+import FormButton from "../../components/action/FormButton/FormButton";
 
 export class Register extends React.Component {
   constructor(props) {

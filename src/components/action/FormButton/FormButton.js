@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const FormButton = (props) => {
+const FormButton = ({ className, text }) => {
   return (
-    <button className={`btn ` + props.classNames} type="submit">
-      {props.text}
+    <button className={"btn " + className} type="submit">
+      {text}
     </button>
   );
 };
@@ -12,5 +12,5 @@ const FormButton = (props) => {
 export default FormButton;
 FormButton.propTypes = {
   text: PropTypes.string,
-  classNames: PropTypes.string,
+  className: PropTypes.string,
 };
