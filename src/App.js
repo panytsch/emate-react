@@ -13,6 +13,7 @@ import {Profile} from './pages/profile/Profile';
 import LoaderLayout from './components/layouts/loader/LoaderLayout';
 import {history} from './services/history';
 
+
 function App() {
   return (
     <Provider store={store}>
