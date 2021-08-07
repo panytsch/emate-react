@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const FormInput = ({ type }, props) => {
+const FormInput = (props) => {
   let temporary = {
     id: "",
     type: "",
@@ -10,7 +10,7 @@ const FormInput = ({ type }, props) => {
     placeholder: "",
     ariaDescribedby: "",
   };
-  switch (type) {
+  switch (props.type) {
     case "email":
       temporary.type = "email";
       temporary.name = "email";
@@ -37,8 +37,6 @@ const FormInput = ({ type }, props) => {
       temporary.classnames = "form-control form-control-user";
       temporary.placeholder = "Repeat Password";
       break;
-    default:
-      console.log("");
   }
   temporary = { ...temporary, ...props };
 
@@ -49,7 +47,7 @@ const FormInput = ({ type }, props) => {
       type={temporary.type}
       name={temporary.name}
       placeholder={temporary.placeholder}
-      ariaDescribedby={temporary.ariaDescribedby}
+      {...temporary}
     />
   );
 };
