@@ -95,7 +95,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(loginUser(email, password));
   },
   onRememberClick: (wantsToRemember) => {
-    console.log(wantsToRemember);
     dispatch(rememberMe(wantsToRemember));
   },
 });
