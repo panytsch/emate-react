@@ -8,7 +8,7 @@ import {AuthLayout} from './components/layouts/auth/AuthLayout';
 import * as route from './constants/routes';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
-import {MainLayout} from './components/layouts/main/MainLayout';
+import MainLayout from './components/layouts/main/MainLayout';
 import {Profile} from './pages/profile/Profile';
 import LoaderLayout from './components/layouts/loader/LoaderLayout';
 import {history} from './services/history';

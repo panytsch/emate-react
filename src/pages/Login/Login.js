@@ -1,30 +1,34 @@
-import React from "react";
-import picture from "../../assets/img/dogs/image3.jpeg";
-import * as routes from "../../constants/routes";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { loginUser } from "../../actions/auth";
-import PropTypes from "prop-types";
-import FormInput from "../../components/elements/FormInput/FormInput";
-import FormImage from "../../components/elements/FormImage/FormImage";
-import FormButton from "../../components/elements/FormButton/FormButton";
-import FormLabel from "../../components/elements/FormLabel/FormLabel";
+import React from 'react';
+import picture from '../../assets/img/dogs/image3.jpeg';
+import * as routes from '../../constants/routes';
+import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {loginUser, rememberMe} from '../../actions/auth';
+import PropTypes from 'prop-types';
+import FormInput from '../../components/elements/FormInput/FormInput';
+import FormImage from '../../components/elements/FormImage/FormImage';
+import FormButton from '../../components/elements/FormButton/FormButton';
+import FormLabel from '../../components/elements/FormLabel/FormLabel';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     };
   }
 
+  onRememberClick = (event) => {
+    this.props.onRememberClick(event.target.checked);
+  }
+
   render() {
-    const { email, password } = this.state;
+    const {email, password} = this.state;
     return (
       <div className="row">
         <div className="col-lg-6 d-none d-lg-flex">
-          <FormImage imgClass="bg-login-image" imgUrl={picture} />
+          <FormImage imgClass="bg-login-image" imgUrl={picture}/>
         </div>
         <div className="col-lg-6">
           <div className="p-5">
@@ -43,7 +47,7 @@ class Login extends React.Component {
                   type="email"
                   value={email}
                   onChange={(event) =>
-                    this.setState({ ...this.state, email: event.target.value })
+                    this.setState({...this.state, email: event.target.value})
                   }
                 />
               </div>
@@ -62,8 +66,8 @@ class Login extends React.Component {
               <div className="form-group mb-3">
                 <div className="custom-control custom-checkbox small">
                   <div className="form-check">
-                    <FormInput type="checkbox" />
-                    <FormLabel text="Remember Me" />
+                    <FormInput type="checkbox" onChange={this.onRememberClick} checked={this.props.auth.rememberMe}/>
+                    <FormLabel text="Remember Me"/>
                   </div>
                 </div>
               </div>
@@ -84,11 +88,15 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => ({ auth });
+const mapStateToProps = ({auth}) => ({auth});
 
 const mapDispatchToProps = (dispatch) => ({
   login: (email, password) => {
     dispatch(loginUser(email, password));
+  },
+  onRememberClick: (wantsToRemember) => {
+    console.log(wantsToRemember);
+    dispatch(rememberMe(wantsToRemember));
   },
 });
 
@@ -96,4 +104,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 Login.propTypes = {
   login: PropTypes.any,
+  onRememberClick: PropTypes.any,
+  auth: PropTypes.any,
 };
