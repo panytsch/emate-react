@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const FormInput = (props) => {
   let temporary = {
@@ -9,7 +9,8 @@ const FormInput = (props) => {
     classnames: "",
     placeholder: "",
   };
-  switch (props.type) {
+  const { type, ...propsState } = props;
+  switch (type) {
     case "email":
       temporary.type = "email";
       temporary.name = "email";
@@ -23,11 +24,6 @@ const FormInput = (props) => {
       temporary.classnames = "form-control form-control-user";
       temporary.placeholder = "Password";
       break;
-    case "checkbox":
-      temporary.id = "formCheck-1";
-      temporary.type = "checkbox";
-      temporary.classnames = "form-check-input custom-control-input";
-      break;
     case "passwordRepeat":
       temporary.id = "exampleRepeatPasswordInput";
       temporary.type = "password";
@@ -35,8 +31,16 @@ const FormInput = (props) => {
       temporary.classnames = "form-control form-control-user";
       temporary.placeholder = "Repeat Password";
       break;
+    case "checkbox":
+      temporary.id = "formCheck-1";
+      temporary.type = "checkbox";
+      temporary.classnames = "form-check-input custom-control-input";
+      break;
+    default:
+      temporary.type = type;
   }
-  temporary = { ...temporary, ...props };
+
+  temporary = { ...temporary, ...propsState };
 
   return (
     <input
