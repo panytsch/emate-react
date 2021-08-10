@@ -8,7 +8,6 @@ const FormInput = (props) => {
     name: "",
     classnames: "",
     placeholder: "",
-    ariaDescribedby: "",
   };
   switch (props.type) {
     case "email":
@@ -16,7 +15,6 @@ const FormInput = (props) => {
       temporary.name = "email";
       temporary.classnames = "form-control form-control-user";
       temporary.placeholder = "Email Address";
-      temporary.ariaDescribedby = "emailHelp";
       break;
     case "password":
       temporary.id = "examplePasswordInput";
