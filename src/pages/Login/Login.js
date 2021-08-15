@@ -9,6 +9,7 @@ import FormInput from '../../components/elements/FormInput/FormInput';
 import FormImage from '../../components/elements/FormImage/FormImage';
 import FormButton from '../../components/elements/FormButton/FormButton';
 import FormLabel from '../../components/elements/FormLabel/FormLabel';
+import {history} from '../../services/history';
 
 class Login extends React.Component {
   constructor(props) {
@@ -19,9 +20,15 @@ class Login extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.auth.token) {
+      history.push(routes.MainLoggedInRoute);
+    }
+  }
+
   onRememberClick = (event) => {
     this.props.onRememberClick(event.target.checked);
-  }
+  };
 
   render() {
     const {email, password} = this.state;
