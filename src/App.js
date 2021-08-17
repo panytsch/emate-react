@@ -12,6 +12,12 @@ import MainLayout from './components/layouts/main/MainLayout';
 import {Profile} from './pages/profile/Profile';
 import LoaderLayout from './components/layouts/loader/LoaderLayout';
 import {history} from './services/history';
+import Projects from './pages/Projects/Projects';
+import NewProject from './pages/NewProject/NewProject';
+import Teams from './pages/Teams/Teams';
+import NewTeam from './pages/NewTeam/NewTeam';
+import Employees from './pages/Employees/Employees';
+import NewEmployee from './pages/NewEmployee/NewEmployee';
 
 
 function App() {
@@ -31,13 +37,23 @@ function App() {
                 </Switch>
               </AuthLayout>
             </Route>
-            <Route exact path={[route.Profile]}>
-              <MainLayout>
-                <Switch>
-                  <Route path={route.Profile} exact component={Profile}/>
-                </Switch>
-              </MainLayout>
-            </Route>
+            <MainLayout>
+              <Switch>
+                <Route path={route.Profile} exact component={Profile}/>
+                <Route path={route.Projects}>
+                  <Route path={route.Projects} exact component={Projects}/>
+                  <Route path={route.NewProject} exact component={NewProject}/>
+                </Route>
+                <Route path={route.Teams}>
+                  <Route path={route.Teams} exact component={Teams}/>
+                  <Route path={route.NewTeam} exact component={NewTeam}/>
+                </Route>
+                <Route path={route.Employees}>
+                  <Route path={route.Employees} exact component={Employees}/>
+                  <Route path={route.NewEmployee} exact component={NewEmployee}/>
+                </Route>
+              </Switch>
+            </MainLayout>
           </LoaderLayout>
         </Switch>
       </Router>

@@ -20,7 +20,7 @@ export const registerUser = (email, password1, password2) => (dispatch) => {
           type: ActionSuccessRegister,
           token: data.key,
         });
-        history.push(routes.Profile);
+        history.push(routes.MainLoggedInRoute);
       }
     })
     .finally(() => {
@@ -38,7 +38,7 @@ export const loginUser = (email, password) => (dispatch) => {
           type: ActionSuccessLogin,
           token: data.key,
         });
-        history.push(routes.Profile);
+        history.push(routes.MainLoggedInRoute);
       }
     })
     .finally(() => {

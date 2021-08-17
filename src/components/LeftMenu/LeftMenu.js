@@ -1,4 +1,6 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
+import * as routes from '../../constants/routes';
 
 const LeftMenu = () => (
   <nav className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
@@ -17,22 +19,22 @@ const LeftMenu = () => (
           </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="projects.html">
+          <NavLink className="nav-link" to={routes.Projects} activeClassName="active">
             <i className="fas fa-table"/>
             <span>Projects</span>
-          </a>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <a className="nav-link active" href="teams.html">
+          <NavLink className="nav-link" to={routes.Teams} activeClassName="active">
             <i className="fas fa-user"/>
             <span>Teams</span>
-          </a>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="employees.html">
+          <NavLink className="nav-link" to={routes.Employees} activeClassName="active">
             <i className="fas fa-user"/>
             <span>Employees</span>
-          </a>
+          </NavLink>
         </li>
       </ul>
     </div>

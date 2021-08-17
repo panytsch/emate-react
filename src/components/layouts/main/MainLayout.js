@@ -15,6 +15,9 @@ class MainLayout extends React.Component {
   }
 
   render() {
+    if (!this.props.auth.token) {
+      return '';
+    }
     return (
       <div id="wrapper">
         <LeftMenu/>
