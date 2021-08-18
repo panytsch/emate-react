@@ -3,6 +3,7 @@ import {apiPath} from '../constants/api';
 import * as routes from '../constants/routes';
 import {dispatchDisableLoader, dispatchEnableLoader} from './loader';
 import {history} from '../services/history';
+import {attachTokenToFutureRequests} from '../services/axios';
 
 export const ActionSuccessLogin = '[auth] success login';
 export const ActionSuccessRegister = '[auth] success register';
@@ -16,6 +17,7 @@ export const registerUser = (email, password1, password2) => (dispatch) => {
     .post(`${apiPath}/registration/`, {email, password1, password2, username: email})
     .then(({data}) => {
       if (data.key) {
+        attachTokenToFutureRequests(data.key);
         dispatch({
           type: ActionSuccessRegister,
           token: data.key,
@@ -34,6 +36,7 @@ export const loginUser = (email, password) => (dispatch) => {
     .post(`${apiPath}/login/`, {email, password, username: email})
     .then(({data}) => {
       if (data.key) {
+        attachTokenToFutureRequests(data.key);
         dispatch({
           type: ActionSuccessLogin,
           token: data.key,
@@ -49,4 +52,4 @@ export const loginUser = (email, password) => (dispatch) => {
 export const rememberMe = (wantsToRemember) => ({
   type: RememberMeAction,
   payload: !!wantsToRemember,
-})
+});

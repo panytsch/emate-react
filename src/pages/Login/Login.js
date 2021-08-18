@@ -81,6 +81,7 @@ class Login extends React.Component {
               <FormButton
                 text="Login"
                 className="btn-primary d-block btn-user w-100"
+                type="submit"
               />
             </form>
             <div className="text-center">

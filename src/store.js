@@ -3,10 +3,12 @@ import thunk from 'redux-thunk'
 import {auth} from './reducers/auth';
 import {loader} from './reducers/loader';
 import {persistToSessionStorage} from './middlewares/persistStore';
+import {projects} from './reducers/projects';
 
 const reducers = combineReducers({
   auth,
   loader,
+  projects,
 });
 
 export const store = createStore(

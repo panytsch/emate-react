@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import FormInput from "../../components/elements/FormInput/FormInput";
 import FormImage from "../../components/elements/FormImage/FormImage";
 import FormButton from "../../components/elements/FormButton/FormButton";
+import {history} from '../../services/history';
 
 export class Register extends React.Component {
   constructor(props) {
@@ -17,6 +18,12 @@ export class Register extends React.Component {
       password1: "",
       password2: "",
     };
+  }
+
+  componentDidMount() {
+    if (this.props.auth.token) {
+      history.push(routes.MainLoggedInRoute);
+    }
   }
 
   render() {
@@ -76,6 +83,7 @@ export class Register extends React.Component {
               <FormButton
                 text="Register Account"
                 className="btn-primary d-block btn-user w-100"
+                type="submit"
               />
             </form>
             <div className="text-center">
@@ -99,5 +107,6 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
 
 Register.propTypes = {
+  auth: PropTypes.any,
   register: PropTypes.any,
 };
