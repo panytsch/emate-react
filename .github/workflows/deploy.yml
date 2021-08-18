@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Use Node.js 16
         uses: actions/setup-node@v1
         with:
@@ -24,7 +24,7 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: panytsch/emate-react/emate-prod
-          registry: docker.pkg.github.com
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           dockerfile: Dockerfile-prod
