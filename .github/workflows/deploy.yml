@@ -13,16 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 16
-        uses: actions/setup-node@v1
-        with:
-          node-version: '16'
-      - name: Install yarn and run unit test
-        run: |
-          yarn
-          yarn test
-        env:
-          CI: true
       - name: Publish to Github Packages Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
