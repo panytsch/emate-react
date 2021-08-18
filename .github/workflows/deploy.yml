@@ -25,7 +25,7 @@ jobs:
         with:
           name: panytsch/emate-react/emate-prod
           registry: docker.pkg.github.com
-          username: ${{ secrets.USERNAME }}
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           dockerfile: Dockerfile-prod
           tags: latest
