@@ -69,7 +69,7 @@ export class Register extends React.Component {
                 </div>
                 <div className="col-sm-6">
                   <FormInput
-                    type="passwordRepeat"
+                    type="password"
                     value={password2}
                     onChange={(event) =>
                       this.setState({

@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const FormLabel = ({ text, className }) => {
+const FormLabel = ({ text, className, ...props }) => {
   return (
     <label
       className={"form-check-label custom-control-label" + className}
-      htmlFor="formCheck-1"
+      {...props}
     >
       {text}
     </label>

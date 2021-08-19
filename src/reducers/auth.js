@@ -14,7 +14,7 @@ const getInitialState = () => {
   const initialState = {
     token: window.localStorage.getItem(tokenKey),
     error: null,
-    rememberMe: !!window.localStorage.getItem(rememberMeKey),
+    rememberMe: window.localStorage.getItem(rememberMeKey) === 'true',
   };
   if (initialState.token) {
     attachTokenToFutureRequests(initialState.token);
