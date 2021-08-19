@@ -22,3 +22,19 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           dockerfile: Dockerfile-prod
           tags: latest
+      - name: Deploy package to digitalocean
+        uses: cross-the-world/ssh-pipeline@master
+        env:
+          GITHUB_USERNAME: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          host: ${{ secrets.DO_HOST }}
+          user: ${{ secrets.DO_USERNAME }}
+          pass: ${{ secrets.DO_PASSWORD }}
+          port: ${{ secrets.DO_SSH_PORT }}
+          envs: GITHUB_USERNAME, GITHUB_TOKEN
+          script: |
+            docker stop $(docker ps -q --filter ancestor=ghcr.io/panytsch/emate-react/emate-prod:latest)
+            docker login ghcr.io -u $GITHUB_USERNAME -p $GITHUB_TOKEN
+            docker pull ghcr.io/panytsch/emate-react/emate-prod:latest
+            docker run -dit -p 80:80 ghcr.io/panytsch/emate-react/emate-prod:latest
