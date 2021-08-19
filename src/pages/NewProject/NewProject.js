@@ -1,11 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import CreateProject from '../../components/forms/CreateProject/CreateProject';
 import FormButton from '../../components/elements/FormButton/FormButton';
-import {createProject} from '../../actions/projects';
-import PropTypes from 'prop-types';
 
-const NewProject = ({onCreateNewProject}) => (
+const NewProject = () => (
   <>
     <div className="row">
       <div className="col">
@@ -13,8 +10,8 @@ const NewProject = ({onCreateNewProject}) => (
       </div>
     </div>
     <div className="row">
-      <div className="col">
-        <CreateProject onSubmit={onCreateNewProject}/>
+      <div className="col m-3">
+        <CreateProject/>
       </div>
     </div>
     <div className="row">
@@ -31,7 +28,7 @@ const NewProject = ({onCreateNewProject}) => (
             <tr>
               <td>Cell 1</td>
               <td>
-                <FormButton className="btn-primary" text="Remove"/>
+                <FormButton className="btn-danger" text="Remove"/>
               </td>
             </tr>
             </tbody>
@@ -42,23 +39,6 @@ const NewProject = ({onCreateNewProject}) => (
   </>
 );
 
-export default connect(
-  null,
-  (dispatch) => ({
-    onCreateNewProject: ({name, status, description, customerInfo, manager, team, expectedBudget, dueDate}) =>
-      dispatch(createProject(
-        name,
-        description,
-        customerInfo,
-        status,
-        manager,
-        team,
-        expectedBudget,
-        dueDate,
-      )),
-  }),
-)(NewProject);
+export default NewProject;
 
-NewProject.propTypes = {
-  onCreateNewProject: PropTypes.func,
-};
+NewProject.propTypes = {};

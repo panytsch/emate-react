@@ -29,6 +29,12 @@ export const createProject = (name, description, customerInfo, status, managerId
       });
       history.push(routes.Projects);
     })
+    .catch(({response}) => {
+      dispatch({
+        type: ActionProjectCreatingFailed,
+        errors: response.data,
+      });
+    })
     .finally(() => {
       dispatch(dispatchDisableLoader());
     });
