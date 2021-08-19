@@ -23,14 +23,14 @@ jobs:
           dockerfile: Dockerfile-prod
           tags: latest
       - name: Deploy package to digitalocean
-          uses: appleboy/ssh-action@master
+          uses: cross-the-world/ssh-pipeline@master
           env:
             GITHUB_USERNAME: ${{ github.actor }}
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
             host: ${{ secrets.DO_HOST }}
-            username: ${{ secrets.DO_USERNAME }}
-            password: ${{ secrets.DO_PASSWORD }}
+            user: ${{ secrets.DO_USERNAME }}
+            pass: ${{ secrets.DO_PASSWORD }}
             port: ${{ secrets.DO_SSH_PORT }}
             envs: GITHUB_USERNAME, GITHUB_TOKEN
             script: |
