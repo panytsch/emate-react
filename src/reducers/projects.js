@@ -1,4 +1,4 @@
-import {ActionProjectCreatedSuccess, ActionProjectCreatingFailed} from '../actions/projects';
+import {ActionProjectCreatedSuccess, ActionProjectCreatingFailed, ActionProjectsLoaded} from '../actions/projects';
 
 const initialState = {
   projects: [],
@@ -17,6 +17,12 @@ export const projects = (state = initialState, action) => {
       return {
         ...state,
         createProjectErrors: action.errors,
+      };
+    case ActionProjectsLoaded:
+      return {
+        ...state,
+        projects: action.projects,
+        createProjectErrors: null,
       };
     default:
       return {...state};

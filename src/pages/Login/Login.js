@@ -37,10 +37,10 @@ class Login extends React.Component {
             <Formik onSubmit={this.props.login} initialValues={{}}>
               <Form className="user">
                 <div className="form-group mb-3">
-                  <Field type="email" name="email" className="form-control form-control-user"/>
+                  <Field type="email" name="email" className="form-control form-control-user" placeholder="Your email"/>
                 </div>
                 <div className="form-group mb-3">
-                  <Field type="password" name="password" className="form-control form-control-user"/>
+                  <Field type="password" name="password" className="form-control form-control-user" placeholder="Password"/>
                 </div>
                 <div className="form-group mb-3">
                   <div className="custom-control custom-checkbox small">

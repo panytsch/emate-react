@@ -6,6 +6,7 @@ import {history} from '../services/history';
 
 export const ActionProjectCreatedSuccess = '[projects] successfully created';
 export const ActionProjectCreatingFailed = '[projects] creating failed';
+export const ActionProjectsLoaded = '[projects] load projects';
 
 export const createProject = (name, description, customerInfo, status, managerId, teamId, expectedBudget, dueDate) => (dispatch) => {
   dispatch(dispatchEnableLoader());
@@ -39,3 +40,18 @@ export const createProject = (name, description, customerInfo, status, managerId
       dispatch(dispatchDisableLoader());
     });
 };
+
+export const loadProjects = () => (dispatch) => {
+  dispatch(dispatchEnableLoader());
+  return axios
+    .get(`${apiPath}/projects/`)
+    .then(({data}) => {
+      dispatch({
+        type: ActionProjectsLoaded,
+        projects: data,
+      });
+    })
+    .finally(() => {
+      dispatch(dispatchDisableLoader());
+    });
+}
