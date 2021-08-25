@@ -18,6 +18,7 @@ import Teams from './pages/Teams/Teams';
 import NewTeam from './pages/NewTeam/NewTeam';
 import Employees from './pages/Employees/Employees';
 import NewEmployee from './pages/NewEmployee/NewEmployee';
+import EditProject from './pages/EditProject/EditProject';
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
                 <Route path={route.Projects}>
                   <Route path={route.Projects} exact component={Projects}/>
                   <Route path={route.NewProject} exact component={NewProject}/>
+                  <Route path={route.EditProject} exact component={EditProject}/>
                 </Route>
                 <Route path={route.Teams}>
                   <Route path={route.Teams} exact component={Teams}/>
