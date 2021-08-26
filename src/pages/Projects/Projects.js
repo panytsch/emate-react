@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import {loadProjects} from '../../actions/projects';
 import PropTypes from 'prop-types';
 import {NotAvailable} from '../../constants/accessebility';
+import {editProjectUrl} from '../../constants/routes';
 
 class Projects extends React.Component {
   componentDidMount() {
@@ -33,6 +34,7 @@ class Projects extends React.Component {
                   <th>Status</th>
                   <th>Due date</th>
                   <th>Budget</th>
+                  <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -45,6 +47,9 @@ class Projects extends React.Component {
                         <td>{status || NotAvailable}</td>
                         <td>{due_date || NotAvailable}</td>
                         <td>{budget || NotAvailable}</td>
+                        <td>
+                          <Link className="btn btn-success" to={editProjectUrl(id)}>Edit</Link>
+                        </td>
                       </tr>
                     );
                   })
