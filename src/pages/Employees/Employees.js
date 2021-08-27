@@ -37,10 +37,10 @@ class Employees extends React.Component {
                 {
                   this.props.employees.map(({id, name, position, seniority, rate}) => {
                     return (<tr key={`employee-${id}`}>
-                      <th>{name}</th>
-                      <th>{position}</th>
-                      <th>{seniority}</th>
-                      <th>{rate}</th>
+                      <td>{name}</td>
+                      <td>{position}</td>
+                      <td>{seniority}</td>
+                      <td>{rate}</td>
                     </tr>);
                   })
                 }
