@@ -18,6 +18,7 @@
     "react"
   ],
   "rules": {
-    "no-debugger": "off"
+    "no-debugger": "off",
+    "no-case-declarations": "off"
   }
 }

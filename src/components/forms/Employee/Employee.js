@@ -6,7 +6,8 @@ import {Field, Form, Formik} from 'formik';
 import PropTypes from 'prop-types';
 import {createEmployee, editEmployee} from '../../../actions/employees';
 
-const EmployeeForm = ({employees, onSubmit}) => {
+const EmployeeForm = ({employees, onSubmit, employee, employeeId}) => {
+  const source = employeeId ? employees.editEmployeeErrors : employees.createEmployeeErrors;
   const {
     first_name,
     last_name,
@@ -16,11 +17,14 @@ const EmployeeForm = ({employees, onSubmit}) => {
     price_per_hour_external,
     seniority,
     team_id,
-  } = employees.createEmployeeErrors || {};
+  } = source || {};
   return (
     <Formik
       enableReinitialize
-      initialValues={{}}
+      initialValues={{
+        ...employee,
+        id: employeeId,
+      }}
       onSubmit={onSubmit}
     >
       {
@@ -131,7 +135,7 @@ export default connect(
           price_per_hour_internal,
           price_per_hour_external,
           seniority,
-          team_id || null,
+          team_id,
         ));
       }
       return dispatch(createEmployee(
@@ -142,7 +146,7 @@ export default connect(
         price_per_hour_internal,
         price_per_hour_external,
         seniority,
-        team_id || null,
+        team_id,
       ));
     },
   }),

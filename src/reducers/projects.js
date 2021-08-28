@@ -18,13 +18,11 @@ export const projects = (state = initialState, action) => {
     case ActionProjectCreatedSuccess:
       return {
         ...state,
-        projects: [...state.projects, action.project],
         createProjectErrors: null,
       };
     case ActionProjectEditedSuccess:
       return {
         ...state,
-        projects: [...state.projects, action.project],
         editProjectErrors: null,
       };
     case ActionProjectClearEditData:
@@ -39,6 +37,9 @@ export const projects = (state = initialState, action) => {
         createProjectErrors: action.errors,
       };
     case ActionProjectEditingFailed:
+      for (const errorsKey in action.errors) {
+        action.errors[errorsKey] = action.errors[errorsKey][0];
+      }
       return {
         ...state,
         editProjectErrors: action.errors,

@@ -19,13 +19,11 @@ export const employees = (state = initialState, action) => {
     case ActionEmployeeCreatedSuccess:
       return {
         ...state,
-        employees: [...state.employees, action.employee],
         createEmployeeErrors: null,
       };
     case ActionEmployeeEditedSuccess:
       return {
         ...state,
-        employees: [...state.employees, action.employee],
         editEmployeeErrors: null,
       };
     case ActionEmployeeClearEditData:
@@ -40,6 +38,9 @@ export const employees = (state = initialState, action) => {
         createEmployeeErrors: action.errors,
       };
     case ActionEmployeeEditingFailed:
+      for (const errorsKey in action.errors) {
+        action.errors[errorsKey] = action.errors[errorsKey][0];
+      }
       return {
         ...state,
         editEmployeeErrors: action.errors,

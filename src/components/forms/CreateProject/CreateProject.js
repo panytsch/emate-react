@@ -8,7 +8,8 @@ import {connect} from 'react-redux';
 import {createProject, editProject} from '../../../actions/projects';
 
 const CreateProject = ({onSubmit, projects, project, projectId}) => {
-  const {customer_info, description, name, status} = projects.createProjectErrors || {};
+  let source = projectId ? projects.editEmployeeErrors : projects.createProjectErrors;
+  const {customer_info, description, name, status} = source || {};
   return (
     <>
       <div className="row">

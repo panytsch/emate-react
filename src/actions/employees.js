@@ -11,7 +11,7 @@ export const ActionEmployeeClearEditData = '[employees] clear edit data';
 export const ActionEmployeeLoadedForEditing = '[employees] employee loaded for editing';
 export const ActionEmployeeCreatingFailed = '[employees] creating failed';
 export const ActionEmployeeEditingFailed = '[employees] editing failed';
-export const ActionEmployeesLoaded = '[employees] load projects';
+export const ActionEmployeesLoaded = '[employees] load employees';
 
 export const createEmployee = (first_name, last_name, email, position, price_per_hour_internal, price_per_hour_external, seniority, team_id) => (dispatch) => {
   dispatch(dispatchEnableLoader());
@@ -42,10 +42,12 @@ export const createEmployee = (first_name, last_name, email, position, price_per
 
 export const editEmployee = (id, first_name, last_name, email, position, price_per_hour_internal, price_per_hour_external, seniority, team_id) => (dispatch) => {
   dispatch(dispatchEnableLoader());
+  let request = {id, first_name, last_name, email, position, price_per_hour_internal, price_per_hour_external, seniority, team_id};
+  request = removeEmptyFieldsInObject(request);
   return axios
     .put(
       `${apiPath}/employee/`,
-      {id, first_name, last_name, email, position, price_per_hour_internal, price_per_hour_external, seniority, team_id},
+      request,
     )
     .then(({data}) => {
       dispatch({

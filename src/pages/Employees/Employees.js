@@ -4,6 +4,7 @@ import * as routes from '../../constants/routes';
 import {Link} from 'react-router-dom';
 import {loadEmployees} from '../../actions/employees';
 import PropTypes from 'prop-types';
+import {editEmployeeUrl} from '../../constants/routes';
 
 class Employees extends React.Component {
   componentDidMount() {
@@ -31,6 +32,7 @@ class Employees extends React.Component {
                   <th>Position</th>
                   <th>Seniority</th>
                   <th>Rate</th>
+                  <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,6 +43,9 @@ class Employees extends React.Component {
                       <td>{position}</td>
                       <td>{seniority}</td>
                       <td>{rate}</td>
+                      <td>
+                        <Link to={editEmployeeUrl(id)} className="btn btn-info">Edit</Link>
+                      </td>
                     </tr>);
                   })
                 }

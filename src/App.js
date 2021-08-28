@@ -19,6 +19,7 @@ import NewTeam from './pages/NewTeam/NewTeam';
 import Employees from './pages/Employees/Employees';
 import NewEmployee from './pages/NewEmployee/NewEmployee';
 import EditProject from './pages/EditProject/EditProject';
+import EditEmployee from './pages/EditEmployee/EditEmployee';
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
                 <Route path={route.Employees}>
                   <Route path={route.Employees} exact component={Employees}/>
                   <Route path={route.NewEmployee} exact component={NewEmployee}/>
+                  <Route path={route.EditEmployee} exact component={EditEmployee}/>
                 </Route>
               </Switch>
             </MainLayout>
