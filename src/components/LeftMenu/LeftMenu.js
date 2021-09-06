@@ -1,19 +1,16 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import * as routes from '../../constants/routes';
+import ProjectsSelect from '../ProjectsSelect/ProjectsSelect';
 
 const LeftMenu = () => (
   <nav className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-    <div className="container-fluid d-flex flex-column p-0"><a
-      className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-      <div className="sidebar-brand-text mx-3">
-        <span><br/>Airi Satou<br/><br/></span>
-      </div>
-    </a>
+    <div className="container-fluid d-flex flex-column p-0">
+      <ProjectsSelect/>
       <hr className="sidebar-divider my-0"/>
       <ul className="navbar-nav text-light" id="accordionSidebar">
         <li className="nav-item">
-          <a className="nav-link" href="index.html">
+          <a className="nav-link" href="#">
             <i className="fas fa-tachometer-alt"/>
             <span>Dashboard</span>
           </a>

@@ -11,6 +11,7 @@ export const ActionProjectLoadedForEditing = '[projects] project loaded for edit
 export const ActionProjectCreatingFailed = '[projects] creating failed';
 export const ActionProjectEditingFailed = '[projects] editing failed';
 export const ActionProjectsLoaded = '[projects] load projects';
+export const ActionProjectsSetActiveProject = '[projects] set active ';
 
 export const createProject = (name, description, customerInfo, status, managerId, teamId, expectedBudget, dueDate) => (dispatch) => {
     dispatch(dispatchEnableLoader());
@@ -108,3 +109,8 @@ export const loadProjectToEdit = (id) => (dispatch) => {
             dispatch(dispatchDisableLoader());
         });
 }
+
+export const setActiveProject = (id) => ({
+  type: ActionProjectsSetActiveProject,
+  projectId: id,
+})

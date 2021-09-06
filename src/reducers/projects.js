@@ -3,7 +3,7 @@ import {
   ActionProjectCreatedSuccess,
   ActionProjectCreatingFailed, ActionProjectEditedSuccess, ActionProjectEditingFailed,
   ActionProjectLoadedForEditing,
-  ActionProjectsLoaded,
+  ActionProjectsLoaded, ActionProjectsSetActiveProject,
 } from '../actions/projects';
 
 const initialState = {
@@ -11,6 +11,7 @@ const initialState = {
   createProjectErrors: null,
   editProjectErrors: null,
   selectedToEditProject: null,
+  activeProject: null,
 };
 
 export const projects = (state = initialState, action) => {
@@ -45,11 +46,22 @@ export const projects = (state = initialState, action) => {
         editProjectErrors: action.errors,
       };
     case ActionProjectsLoaded:
+      action.projects.forEach((project) => {
+        if (project.active) {
+          state.activeProject = project;
+        }
+      });
+      if (!state.activeProject) {
+        state.activeProject = action.projects[0] || null;
+      }
       return {
         ...state,
         projects: action.projects,
         createProjectErrors: null,
       };
+    case ActionProjectsSetActiveProject:
+      state.activeProject = state.projects.find(({id}) => id === +action.projectId);
+      return {...state};
     case ActionProjectLoadedForEditing:
       return {
         ...state,

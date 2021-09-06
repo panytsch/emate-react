@@ -1,88 +1,78 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import FormLabel from '../../components/elements/FormLabel/FormLabel';
-import FormInput from '../../components/elements/FormInput/FormInput';
-import FormButton from '../../components/elements/FormButton/FormButton';
+import TeamForm from '../../components/forms/Team/Team';
+import {createTeam, editTeam} from '../../actions/teams';
+import PropTypes from 'prop-types';
+import {loadEmployees} from '../../actions/employees';
 
-const NewTeam = () => (
-  <>
-    <div className="row">
-      <div className="col">
-        <h1>New Team</h1>
-      </div>
-    </div>
-    <div className="row">
-      <div className="col">
-        <form>
-          <div className="form-row">
-            <div className="col-sm-6">
-              <div className="form-group">
-                <FormLabel text="Name *"/>
-                <FormInput className="form-control" type="text"/>
-              </div>
-            </div>
-            <div className="col-sm-6">
-              <div className="form-group">.
-                <FormLabel text="Manager"/>
-                <select className="form-control">
-                  <option value="12">This is item 1</option>
-                  <option value="13">This is item 2</option>
-                  <option value="14">This is item 3</option>
-                </select>
-                <small>Can be filled later</small>
-              </div>
+class NewTeam extends React.Component {
+  componentDidMount() {
+    if (!this.props.employees?.length) {
+      this.props.loadEmployees();
+    }
+  }
+
+  render() {
+    const {onSubmit, teams, employees} = this.props;
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col">
+            <h1>New Team</h1>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <TeamForm employees={employees} onSubmit={onSubmit} errors={teams.createTeamErrors || {}}/>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <div className="table-responsive">
+              <table className="table">
+                <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th>Position</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>John Wick</td>
+                  <td>Senior CTO Architect</td>
+                </tr>
+                <tr>
+                  <td>Terminator</td>
+                  <td>Junior Pisun</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-          <div className="form-row">
-            <div className="col-sm-6">
-              <div className="form-group">
-                <FormLabel text="Description"/>
-                <textarea className="form-control"/>
-              </div>
-            </div>
-            <div className="col-sm-6">
-              <div className="form-group">
-                <FormLabel text="Employees"/>
-                <select className="form-control">
-                  <option value="12">This is item 1</option>
-                  <option value="13">This is item 2</option>
-                  <option value="14">This is item 3</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div className="row">
-      <div className="col">
-        <div className="table-responsive">
-          <table className="table">
-            <thead>
-            <tr>
-              <th>Employee</th>
-              <th>Position</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>John Wick</td>
-              <td>Senior CTO Architect</td>
-            </tr>
-            <tr>
-              <td>Terminator</td>
-              <td>Junior Pisun</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <div className="btn-group" role="group">
-          <FormButton className="btn-primary" text="Discard"/>
-          <FormButton className="btn-primary" text="Save"/>
         </div>
       </div>
-    </div>
-  </>
-);
+    );
+  }
+}
 
-export default connect(null, null)(NewTeam);
+const mapStateToProps = ({teams, employees}) => ({teams, employees: employees.employees});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit: ({name, id, description, manager_id, employees_ids}) => {
+    if (id) {
+      return dispatch(editTeam(id, name, description, manager_id, employees_ids));
+    }
+    return dispatch(createTeam(name, description, manager_id, employees_ids));
+  },
+  loadEmployees: () => dispatch(loadEmployees()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewTeam);
+
+NewTeam.propTypes = {
+  employees: PropTypes.array,
+  teams: PropTypes.object,
+  loadEmployees: PropTypes.func,
+  onSubmit: PropTypes.func,
+  createTeamErrors: PropTypes.any,
+}
