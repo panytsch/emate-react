@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 
 import './styles.css';
 
-const DeleteModal = ({className, questionText, onDelete}) => {
+const DeleteModal = ({className, questionText, onDelete, btnText}) => {
   return (
     <Popup
-      trigger={<button className={className}> Open Modal </button>}
+      trigger={<button className={className}>{btnText}</button>}
       modal
       nested
     >
@@ -41,6 +41,7 @@ export default DeleteModal;
 
 DeleteModal.propTypes = {
   questionText: PropTypes.string.isRequired,
+  btnText: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
   className: PropTypes.string,
 };

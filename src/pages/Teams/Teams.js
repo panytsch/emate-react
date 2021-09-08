@@ -47,9 +47,10 @@ class Teams extends React.Component {
                         <td>
                           <Link to={editTeamUrl(id)} className="btn btn-success">Edit</Link>
                           <DeleteModal
-                            className="btn btn-danger"
+                            className="btn btn-danger ml-3"
                             questionText="Are you sure you want to delete team?"
                             onDelete={() => deleteTeam(id)}
+                            btnText="Delete"
                           />
                         </td>
                       </tr>,
