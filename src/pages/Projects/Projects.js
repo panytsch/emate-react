@@ -2,10 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as routes from '../../constants/routes';
 import {Link} from 'react-router-dom';
-import {loadProjects} from '../../actions/projects';
+import {deleteProject, loadProjects} from '../../actions/projects';
 import PropTypes from 'prop-types';
 import {NotAvailable} from '../../constants/accessebility';
 import {editProjectUrl} from '../../constants/routes';
+import DeleteModal from '../../components/DeleteModal/DeleteModal';
 
 class Projects extends React.Component {
   componentDidMount() {
@@ -13,8 +14,9 @@ class Projects extends React.Component {
   }
 
   render() {
+    const {deleteProject} = this.props;
     return (
-      <>
+      <div className="container-fluid">
         <div className="row">
           <div className="col col-10">
             <h3 className="text-dark mb-4">Projects</h3>
@@ -49,28 +51,34 @@ class Projects extends React.Component {
                         <td>{budget || NotAvailable}</td>
                         <td>
                           <Link className="btn btn-success" to={editProjectUrl(id)}>Edit</Link>
+                          <DeleteModal
+                            className="btn btn-danger ml-3"
+                            questionText="Are you sure you want to delete project?"
+                            onDelete={() => deleteProject(id)}
+                            btnText="Delete"
+                          />
                         </td>
                       </tr>
                     );
                   })
                 }
                 </tbody>
-                <tfoot>
-                </tfoot>
               </table>
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }
 
 export default connect(({projects}) => ({projects: projects.projects}), (dispatch) => ({
   loadProjects: () => dispatch(loadProjects()),
+  deleteProject: (id) => dispatch(deleteProject(id)),
 }))(Projects);
 
 Projects.propTypes = {
   loadProjects: PropTypes.func,
+  deleteProject: PropTypes.func,
   projects: PropTypes.array,
 };

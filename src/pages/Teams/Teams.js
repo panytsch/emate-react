@@ -15,7 +15,7 @@ class Teams extends React.Component {
   render() {
     const {teams, deleteTeam} = this.props;
     return (
-      <>
+      <div className="container-fluid">
         <div className="row">
           <div className="col col-10">
             <h3 className="text-dark mb-4">Teams</h3>
@@ -64,7 +64,7 @@ class Teams extends React.Component {
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

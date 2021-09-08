@@ -2,9 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as routes from '../../constants/routes';
 import {Link} from 'react-router-dom';
-import {loadEmployees} from '../../actions/employees';
+import {deleteEmployee, loadEmployees} from '../../actions/employees';
 import PropTypes from 'prop-types';
 import {editEmployeeUrl} from '../../constants/routes';
+import DeleteModal from '../../components/DeleteModal/DeleteModal';
 
 class Employees extends React.Component {
   componentDidMount() {
@@ -12,8 +13,9 @@ class Employees extends React.Component {
   }
 
   render() {
+    const {deleteEmployee} = this.props;
     return (
-      <>
+      <div className="container-fluid">
         <div className="row">
           <div className="col col-10">
             <h3 className="text-dark mb-4">Employees</h3>
@@ -45,6 +47,12 @@ class Employees extends React.Component {
                       <td>{rate}</td>
                       <td>
                         <Link to={editEmployeeUrl(id)} className="btn btn-info">Edit</Link>
+                        <DeleteModal
+                          className="btn btn-danger ml-3"
+                          questionText="Are you sure you want to delete employee?"
+                          onDelete={() => deleteEmployee(id)}
+                          btnText="Delete"
+                        />
                       </td>
                     </tr>);
                   })
@@ -57,7 +65,7 @@ class Employees extends React.Component {
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }
@@ -66,10 +74,12 @@ export default connect(
   ({employees}) => ({employees: employees.employees}),
   (dispatch) => ({
     loadEmployees: () => dispatch(loadEmployees()),
+    deleteEmployee: (id) => dispatch(deleteEmployee(id)),
   }),
 )(Employees);
 
 Employees.propTypes = {
   loadEmployees: PropTypes.func,
+  deleteEmployee: PropTypes.func,
   employees: PropTypes.array,
 }

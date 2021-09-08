@@ -12,6 +12,7 @@ export const ActionEmployeeLoadedForEditing = '[employees] employee loaded for e
 export const ActionEmployeeCreatingFailed = '[employees] creating failed';
 export const ActionEmployeeEditingFailed = '[employees] editing failed';
 export const ActionEmployeesLoaded = '[employees] load employees';
+export const ActionEmployeeDeleted = '[employees] employee deleted';
 
 export const createEmployee = (first_name, last_name, email, position, price_per_hour_internal, price_per_hour_external, seniority, team_id) => (dispatch) => {
   dispatch(dispatchEnableLoader());
@@ -75,6 +76,21 @@ export const loadEmployees = () => (dispatch) => {
       dispatch({
         type: ActionEmployeesLoaded,
         employees: data,
+      });
+    })
+    .finally(() => {
+      dispatch(dispatchDisableLoader());
+    });
+};
+
+export const deleteEmployee = (id) => (dispatch) => {
+  dispatch(dispatchEnableLoader());
+  return axios
+    .delete(`${apiPath}/employee/delete/${id}/`)
+    .then(() => {
+      dispatch({
+        type: ActionEmployeeDeleted,
+        id: id,
       });
     })
     .finally(() => {

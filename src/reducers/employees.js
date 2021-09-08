@@ -1,6 +1,6 @@
 import {
   ActionEmployeeClearEditData, ActionEmployeeCreatedSuccess,
-  ActionEmployeeCreatingFailed, ActionEmployeeEditedSuccess,
+  ActionEmployeeCreatingFailed, ActionEmployeeDeleted, ActionEmployeeEditedSuccess,
   ActionEmployeeEditingFailed,
   ActionEmployeeLoadedForEditing,
   ActionEmployeesLoaded,
@@ -56,6 +56,9 @@ export const employees = (state = initialState, action) => {
         ...state,
         selectedToEditEmployee: action.employee,
       };
+    case ActionEmployeeDeleted:
+      state.employees = state.employees.filter(({id}) => id !== action.id);
+      return {...state};
     default:
       return {...state};
   }

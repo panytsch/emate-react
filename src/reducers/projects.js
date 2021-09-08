@@ -1,7 +1,10 @@
 import {
   ActionProjectClearEditData,
   ActionProjectCreatedSuccess,
-  ActionProjectCreatingFailed, ActionProjectEditedSuccess, ActionProjectEditingFailed,
+  ActionProjectCreatingFailed,
+  ActionProjectDeleted,
+  ActionProjectEditedSuccess,
+  ActionProjectEditingFailed,
   ActionProjectLoadedForEditing,
   ActionProjectsLoaded, ActionProjectsSetActiveProject,
 } from '../actions/projects';
@@ -67,6 +70,9 @@ export const projects = (state = initialState, action) => {
         ...state,
         selectedToEditProject: action.project,
       };
+    case ActionProjectDeleted:
+      state.projects = state.projects.filter(({id}) => id !== action.id);
+      return {...state};
     default:
       return {...state};
   }

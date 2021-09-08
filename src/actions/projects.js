@@ -11,6 +11,7 @@ export const ActionProjectLoadedForEditing = '[projects] project loaded for edit
 export const ActionProjectCreatingFailed = '[projects] creating failed';
 export const ActionProjectEditingFailed = '[projects] editing failed';
 export const ActionProjectsLoaded = '[projects] load projects';
+export const ActionProjectDeleted = '[projects] project deleted';
 export const ActionProjectsSetActiveProject = '[projects] set active ';
 
 export const createProject = (name, description, customerInfo, status, managerId, teamId, expectedBudget, dueDate) => (dispatch) => {
@@ -94,6 +95,21 @@ export const loadProjects = () => (dispatch) => {
             dispatch(dispatchDisableLoader());
         });
 }
+
+export const deleteProject = (id) => (dispatch) => {
+  dispatch(dispatchEnableLoader());
+  return axios
+    .delete(`${apiPath}/project/delete/${id}/`)
+    .then(() => {
+      dispatch({
+        type: ActionProjectDeleted,
+        id: id,
+      });
+    })
+    .finally(() => {
+      dispatch(dispatchDisableLoader());
+    });
+};
 
 export const loadProjectToEdit = (id) => (dispatch) => {
     dispatch(dispatchEnableLoader());
