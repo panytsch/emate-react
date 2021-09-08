@@ -12,6 +12,7 @@ export const ActionTeamLoadedForEditing = '[teams] team loaded for editing';
 export const ActionTeamCreatingFailed = '[teams] creating failed';
 export const ActionTeamEditingFailed = '[teams] editing failed';
 export const ActionTeamsLoaded = '[teams] load teams';
+export const ActionTeamDeleted = '[teams] team deleted';
 
 export const createTeam = (name, description, manager_id, employees_ids) => (dispatch, getState) => {
   dispatch(dispatchEnableLoader());
@@ -79,6 +80,21 @@ export const loadTeams = () => (dispatch) => {
       dispatch({
         type: ActionTeamsLoaded,
         teams: data,
+      });
+    })
+    .finally(() => {
+      dispatch(dispatchDisableLoader());
+    });
+};
+
+export const deleteTeam = (id) => (dispatch) => {
+  dispatch(dispatchEnableLoader());
+  return axios
+    .delete(`${apiPath}/team/delete/${id}/`)
+    .then(() => {
+      dispatch({
+        type: ActionTeamDeleted,
+        id: id,
       });
     })
     .finally(() => {

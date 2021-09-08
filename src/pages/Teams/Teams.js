@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import * as routes from '../../constants/routes';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {loadTeams} from '../../actions/teams';
+import {deleteTeam, loadTeams} from '../../actions/teams';
 import {editTeamUrl} from '../../constants/routes';
+import DeleteModal from '../../components/DeleteModal/DeleteModal';
 
 class Teams extends React.Component {
   componentDidMount() {
@@ -12,7 +13,7 @@ class Teams extends React.Component {
   }
 
   render() {
-    const {teams} = this.props;
+    const {teams, deleteTeam} = this.props;
     return (
       <>
         <div className="row">
@@ -45,6 +46,11 @@ class Teams extends React.Component {
                         <td>{teammates}</td>
                         <td>
                           <Link to={editTeamUrl(id)} className="btn btn-success">Edit</Link>
+                          <DeleteModal
+                            className="btn btn-danger"
+                            questionText="Are you sure you want to delete team?"
+                            onDelete={() => deleteTeam(id)}
+                          />
                         </td>
                       </tr>,
                   )
@@ -66,10 +72,12 @@ export default connect(
   ({teams}) => ({teams: teams.teams}),
   (dispatch) => ({
     loadTeams: () => dispatch(loadTeams()),
+    deleteTeam: (id) => dispatch(deleteTeam(id)),
   }),
 )(Teams);
 
 Teams.propTypes = {
   loadTeams: PropTypes.func,
+  deleteTeam: PropTypes.func,
   teams: PropTypes.array,
 };

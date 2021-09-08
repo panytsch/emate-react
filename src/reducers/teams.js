@@ -1,7 +1,7 @@
 import {
   ActionTeamClearEditData,
   ActionTeamCreatedSuccess,
-  ActionTeamCreatingFailed,
+  ActionTeamCreatingFailed, ActionTeamDeleted,
   ActionTeamEditedSuccess,
   ActionTeamEditingFailed,
   ActionTeamLoadedForEditing,
@@ -61,6 +61,9 @@ export const teams = (state = initialState, action) => {
         ...state,
         selectedToEditTeam: action.team,
       };
+    case ActionTeamDeleted:
+      state.teams = state.teams.filter(({id}) => id !== action.id);
+      return {...state};
     default:
       return {...state};
   }
