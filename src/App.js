@@ -20,6 +20,7 @@ import Employees from './pages/Employees/Employees';
 import NewEmployee from './pages/NewEmployee/NewEmployee';
 import EditProject from './pages/EditProject/EditProject';
 import EditEmployee from './pages/EditEmployee/EditEmployee';
+import EditTeam from './pages/EditTeam/EditTeam';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
                 <Route path={route.Teams}>
                   <Route path={route.Teams} exact component={Teams}/>
                   <Route path={route.NewTeam} exact component={NewTeam}/>
+                  <Route path={route.EditTeam} exact component={EditTeam}/>
                 </Route>
                 <Route path={route.Employees}>
                   <Route path={route.Employees} exact component={Employees}/>

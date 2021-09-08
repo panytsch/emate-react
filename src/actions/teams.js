@@ -42,19 +42,11 @@ export const createTeam = (name, description, manager_id, employees_ids) => (dis
     });
 };
 
-export const editTeam = (id, first_name, last_name, email, position, price_per_hour_internal, price_per_hour_external, seniority, team_id) => (dispatch) => {
+export const editTeam = (id, name, description, manager_id, employees_ids) => (dispatch, getState) => {
   dispatch(dispatchEnableLoader());
-  let request = {
-    id,
-    first_name,
-    last_name,
-    email,
-    position,
-    price_per_hour_internal,
-    price_per_hour_external,
-    seniority,
-    team_id,
-  };
+  let request = {id, name, description, manager_id, employees_ids};
+  const state = getState();
+  request.project_id = state.projects.activeProject.id;
   request = removeEmptyFieldsInObject(request);
   return axios
     .put(

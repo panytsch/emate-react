@@ -7,6 +7,7 @@ import FormButton from '../../elements/FormButton/FormButton';
 const TeamForm = ({onSubmit, team = {}, teamId, errors = {}, employees}) => {
   return (
     <Formik
+      enableReinitialize
       initialValues={{
         name: team.name || '',
         manager_id: team.manager_id || 0,

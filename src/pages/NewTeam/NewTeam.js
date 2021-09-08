@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import TeamForm from '../../components/forms/Team/Team';
-import {createTeam, editTeam} from '../../actions/teams';
+import {createTeam} from '../../actions/teams';
 import PropTypes from 'prop-types';
 import {loadEmployees} from '../../actions/employees';
 
@@ -58,10 +58,7 @@ class NewTeam extends React.Component {
 const mapStateToProps = ({teams, employees}) => ({teams, employees: employees.employees});
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: ({name, id, description, manager_id, employees_ids}) => {
-    if (id) {
-      return dispatch(editTeam(id, name, description, manager_id, employees_ids));
-    }
+  onSubmit: ({name, description, manager_id, employees_ids}) => {
     return dispatch(createTeam(name, description, manager_id, employees_ids));
   },
   loadEmployees: () => dispatch(loadEmployees()),

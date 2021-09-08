@@ -4,6 +4,7 @@ import * as routes from '../../constants/routes';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {loadTeams} from '../../actions/teams';
+import {editTeamUrl} from '../../constants/routes';
 
 class Teams extends React.Component {
   componentDidMount() {
@@ -31,6 +32,7 @@ class Teams extends React.Component {
                   <th>Name</th>
                   <th>Manager</th>
                   <th>Teammates</th>
+                  <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,6 +43,9 @@ class Teams extends React.Component {
                         <td>{name}</td>
                         <td>{manager}</td>
                         <td>{teammates}</td>
+                        <td>
+                          <Link to={editTeamUrl(id)} className="btn btn-success">Edit</Link>
+                        </td>
                       </tr>,
                   )
                 }
