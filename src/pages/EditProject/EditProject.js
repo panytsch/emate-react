@@ -17,7 +17,7 @@ class EditProject extends React.Component {
     const {projectId} = this.props.match.params;
     const {project = {}} = this.props;
     return (
-      <div className="m-3">
+      <div className="container-fluid">
         <div className="row">
           <div className="col">
             <h1>{project?.name}</h1>

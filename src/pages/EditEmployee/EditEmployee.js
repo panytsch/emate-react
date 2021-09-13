@@ -17,7 +17,7 @@ class EditEmployee extends React.Component {
     const {employeeId} = this.props.match.params;
     const {employee = {}} = this.props;
     return (
-      <div className="m-3">
+      <div className="container-fluid">
         <div className="row">
           <div className="col">
             <h1>New Employee</h1>

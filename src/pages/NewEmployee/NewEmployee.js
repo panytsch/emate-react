@@ -2,7 +2,7 @@ import React from 'react';
 import EmployeeForm from '../../components/forms/Employee/Employee';
 
 const NewEmployee = () => (
-  <div className="m-3">
+  <div className="container-fluid">
     <div className="row">
       <div className="col">
         <h1>New Employee</h1>
