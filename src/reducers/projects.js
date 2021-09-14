@@ -15,6 +15,7 @@ const initialState = {
   editProjectErrors: null,
   selectedToEditProject: null,
   activeProject: null,
+  userNameTest: 'Name lastName',
 };
 
 export const projects = (state = initialState, action) => {
