@@ -1,22 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import profileImg from '../../../assets/img/avatars/wb-avatar.png';
 import {useDispatch, useSelector} from 'react-redux';
-import {createName} from '../../../actions/auth';
+import {getUserInfo} from '../../../actions/auth';
 
 const ProfileMenu = () => {
-  const [user, setUser] = useState();
   const name = useSelector(state => state.auth.userName);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(createName());
-    setUser(name);
-
-  }, [user]);
+    dispatch(getUserInfo());
+  }, []);
 
   return (
     <div className="nav-item dropdown no-arrow">
       <a className="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">
-        <span className="d-none d-lg-inline mr-2 text-gray-600 small">{user}</span>
+        <span className="d-none d-lg-inline mr-2 text-gray-600 small">{name}</span>
         <img className="border rounded-circle img-profile" src={profileImg} alt=""/>
       </a>
       <div className="dropdown-menu shadow dropdown-menu-right animated--grow-in">
