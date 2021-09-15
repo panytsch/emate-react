@@ -5,6 +5,7 @@ import {
   ActionSuccessRegister,
   RememberMeAction,
   ActionNameWasFetched,
+  ActionСatchErrorsLogin,
 } from '../actions/auth';
 import {attachTokenToFutureRequests} from '../services/axios';
 
@@ -49,7 +50,12 @@ export const auth = (state = getInitialState(), action) => {
       return {
         ...state,
         userName: action.payload,
-      }
+      };
+    case ActionСatchErrorsLogin:
+      return {
+        ...state,
+        error: action.error,
+      };
     default:
       return {...state};
   }

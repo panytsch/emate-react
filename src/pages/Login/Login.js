@@ -12,8 +12,16 @@ import FormLabel from '../../components/elements/FormLabel/FormLabel';
 import {history} from '../../services/history';
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+
+    };
+  }
 
   componentDidMount() {
+    this.renderError();
     if (this.props.auth.token) {
       history.push(routes.MainLoggedInRoute);
     }
@@ -22,6 +30,16 @@ class Login extends React.Component {
   onRememberClick = (event) => {
     this.props.onRememberClick(event.target.checked);
   };
+  renderError = ()=>{
+    this.setState({
+      error:  this.props.errorLogin,
+    });
+  }
+  createPhar = () => {
+    console.log('this.state.error: ', this.state.error);
+    console.log('this.props.errorLogin: ', this.props.errorLogin);
+  };
+
 
   render() {
     return (
@@ -32,15 +50,18 @@ class Login extends React.Component {
         <div className="col-lg-6">
           <div className="p-5">
             <div className="text-center">
-              <h4 className="text-dark mb-4">Welcome Back!</h4>
+              <h4 onClick={this.createPhar} className="text-dark mb-4">Welcome Back!</h4>
             </div>
             <Formik onSubmit={this.props.login} initialValues={{}}>
               <Form className="user">
                 <div className="form-group mb-3">
                   <Field type="email" name="email" className="form-control form-control-user" placeholder="Your email"/>
+                  {this.state.error && <p>Error email : {this.state.error}</p>}
                 </div>
                 <div className="form-group mb-3">
-                  <Field type="password" name="password" className="form-control form-control-user" placeholder="Password"/>
+                  <Field type="password" name="password" className="form-control form-control-user"
+                         placeholder="Password"/>
+                  {this.state.error && <p>Error password : {this.state.error}</p>}
                 </div>
                 <div className="form-group mb-3">
                   <div className="custom-control custom-checkbox small">
@@ -75,7 +96,10 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = ({auth}) => ({auth});
+const mapStateToProps = ({auth}) => ({
+  auth,
+  errorLogin: auth.error,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   login: ({email, password}) => {
@@ -90,6 +114,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 Login.propTypes = {
   login: PropTypes.any,
+  errorLogin: PropTypes.any,
   onRememberClick: PropTypes.any,
   auth: PropTypes.any,
 };
