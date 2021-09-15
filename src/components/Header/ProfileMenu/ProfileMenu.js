@@ -1,14 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import profileImg from '../../../assets/img/avatars/wb-avatar.png';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {userName} from '../../../actions/auth';
 
-function ProfileMenu() {
+const ProfileMenu = () => {
   const [user, setUser] = useState('Valerie Luna');
-  const userName = useSelector((state) => state.userNameTest);
+  const useName = useSelector(state => state.auth.userNameTest);
+  const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(userName());
+    setUser(useName);
 
-    setUser(userName);
-  }, []);
+  }, [user]);
+
   return (
     <div className="nav-item dropdown no-arrow">
       <a className="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">
@@ -27,6 +31,6 @@ function ProfileMenu() {
       </div>
     </div>
   );
-}
+};
 
 export default ProfileMenu;
