@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import profileImg from '../../../assets/img/avatars/wb-avatar.png';
 import {useDispatch, useSelector} from 'react-redux';
-import {userName} from '../../../actions/auth';
+import {createName} from '../../../actions/auth';
 
 const ProfileMenu = () => {
-  const [user, setUser] = useState('Valerie Luna');
-  const useName = useSelector(state => state.auth.userNameTest);
+  const [user, setUser] = useState();
+  const name = useSelector(state => state.auth.userName);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(userName());
-    setUser(useName);
+    dispatch(createName());
+    setUser(name);
 
   }, [user]);
 
