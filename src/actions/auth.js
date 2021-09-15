@@ -10,6 +10,7 @@ export const ActionSuccessRegister = '[auth] success register';
 export const ActionFailedRegister = '[auth] failed register';
 export const ActionFailedLogin = '[auth] failed register';
 export const RememberMeAction = '[auth] remember me';
+export const ActionNameWasFetched = '[auth] create name';
 
 export const registerUser = (email, password1, password2) => (dispatch) => {
   dispatch(dispatchEnableLoader());
@@ -53,3 +54,15 @@ export const rememberMe = (wantsToRemember) => ({
   type: RememberMeAction,
   payload: !!wantsToRemember,
 });
+
+
+export const getUserInfo = () => (dispatch) => {
+  return axios
+    .get(`${apiPath}/user/token/`)
+    .then(({data}) => {
+      dispatch({
+        type: ActionNameWasFetched,
+        payload: data.email,
+      });
+    });
+};

@@ -4,6 +4,7 @@ import {
   ActionSuccessLogin,
   ActionSuccessRegister,
   RememberMeAction,
+  ActionNameWasFetched,
 } from '../actions/auth';
 import {attachTokenToFutureRequests} from '../services/axios';
 
@@ -15,6 +16,7 @@ const getInitialState = () => {
     token: window.localStorage.getItem(tokenKey),
     error: null,
     rememberMe: window.localStorage.getItem(rememberMeKey) === 'true',
+    userName: 'Name lastName',
   };
   if (initialState.token) {
     attachTokenToFutureRequests(initialState.token);
@@ -43,6 +45,11 @@ export const auth = (state = getInitialState(), action) => {
         ...state,
         rememberMe: action.payload,
       };
+    case ActionNameWasFetched:
+      return {
+        ...state,
+        userName: action.payload,
+      }
     default:
       return {...state};
   }
