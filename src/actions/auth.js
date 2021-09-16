@@ -11,6 +11,7 @@ export const ActionFailedRegister = '[auth] failed register';
 export const ActionFailedLogin = '[auth] failed register';
 export const RememberMeAction = '[auth] remember me';
 export const ActionNameWasFetched = '[auth] create name';
+export const ActionCatchErrorsLogin = '[auth] catch errors';
 
 export const registerUser = (email, password1, password2) => (dispatch) => {
   dispatch(dispatchEnableLoader());
@@ -43,6 +44,13 @@ export const loginUser = (email, password) => (dispatch) => {
           token: data.key,
         });
         history.push(routes.MainLoggedInRoute);
+      }
+    }).catch(function (error) {
+      if (error?.response?.data) {
+        dispatch({
+          type: ActionCatchErrorsLogin,
+          error: error.response.data,
+        });
       }
     })
     .finally(() => {
