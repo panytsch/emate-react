@@ -47,7 +47,6 @@ export const loginUser = (email, password) => (dispatch) => {
       }
     }).catch(function (error) {
       if (error?.response?.data) {
-
         dispatch({
           type: ActionCatchErrorsLogin,
           error: error.response.data,

@@ -10,6 +10,7 @@ import FormImage from '../../components/elements/FormImage/FormImage';
 import FormButton from '../../components/elements/FormButton/FormButton';
 import FormLabel from '../../components/elements/FormLabel/FormLabel';
 import {history} from '../../services/history';
+import {emptyValidator} from '../../services/validators';
 
 class Login extends React.Component {
 
@@ -25,6 +26,7 @@ class Login extends React.Component {
 
 
   render() {
+    const {non_field_errors, email, password} = this.props.errorLogin || {};
     return (
       <div className="row">
         <div className="col-lg-6 d-none d-lg-flex">
@@ -33,42 +35,59 @@ class Login extends React.Component {
         <div className="col-lg-6">
           <div className="p-5">
             <div className="text-center">
-              <h4 className="text-dark mb-4">Welcome Back!</h4>
+              <h4 className={`text-dark mb-4 ${non_field_errors && 'is-invalid'}`}>Welcome Back!</h4>
+              {non_field_errors &&
+              <div className="invalid-feedback">{non_field_errors && non_field_errors[0]}</div>}
             </div>
-            <Formik onSubmit={this.props.login} initialValues={{}}>
-              <Form className="user">
-                <div className="form-group mb-3">
-                  <Field type="email" name="email"
-                         className={`form-control form-control-user ${this.props.errorLogin?.email ? 'is-invalid' : ''}`}
-                         placeholder="Your email"/>
-                </div>
-                <div className="form-group mb-3">
-                  <Field type="password" name="password"
-                         className={`form-control form-control-user ${this.props.errorLogin?.email ? 'is-invalid' : ''}`}
-                         placeholder="Password"/>
-                  {this.props.errorLogin.password &&
-                  <div className="invalid-feedback">{this.props.errorLogin.password[0]}</div>}
-                </div>
-                <div className="form-group mb-3">
-                  <div className="custom-control custom-checkbox small">
-                    <div className="form-check">
-                      <Field
-                        type="checkbox"
-                        id="rememberMe"
-                        className="form-check-input"
-                        onChange={this.onRememberClick}
-                        checked={this.props.auth.rememberMe}
-                      />
-                      <FormLabel text="Remember Me" htmlFor="rememberMe"/>
+            <Formik
+              onSubmit={this.props.login}
+              initialValues={{
+                email: '',
+                password: '',
+              }}
+            >
+              {
+                ({errors, isValid}) => (
+                  <Form className="user">
+                    <div className="form-group mb-3">
+                      <Field type="email"
+                             name="email"
+                             validate={emptyValidator}
+                             className={`form-control form-control-user ${email || errors?.email ? 'is-invalid' : ''}`}
+                             placeholder="Your email"/>
+                      <div className="invalid-feedback">{errors?.email || (email && email[0])}</div>
                     </div>
-                  </div>
-                </div>
-                <FormButton
-                  text="Login"
-                  className="btn-primary d-block btn-user w-100"
-                  type="submit"
-                />
-              </Form>
+                    <div className="form-group mb-3">
+                      <Field type="password"
+                             name="password"
+                             validate={emptyValidator}
+                             className={`form-control form-control-user ${password || errors?.password ? 'is-invalid' : ''}`}
+                             placeholder="Password"/>
+                      <div className="invalid-feedback">{errors?.password || password && password[0]}</div>
+                    </div>
+                    <div className="form-group mb-3">
+                      <div className="custom-control custom-checkbox small">
+                        <div className="form-check">
+                          <Field
+                            type="checkbox"
+                            id="rememberMe"
+                            className="form-check-input"
+                            onChange={this.onRememberClick}
+                            checked={this.props.auth.rememberMe}
+                          />
+                          <FormLabel text="Remember Me" htmlFor="rememberMe"/>
+                        </div>
+                      </div>
+                    </div>
+                    <FormButton
+                      text="Login"
+                      className="btn-primary d-block btn-user w-100"
+                      type="submit"
+                      disabled={!isValid}
+                    />
+                  </Form>
+                )
+              }
             </Formik>
             <div className="text-center">
               <Link className="small" to={routes.Register}>
@@ -84,7 +103,7 @@ class Login extends React.Component {
 
 const mapStateToProps = ({auth}) => ({
   auth,
-  errorLogin: auth.error,
+  errorLogin: auth.loginErrors,
 });
 
 const mapDispatchToProps = (dispatch) => ({
