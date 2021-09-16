@@ -10,8 +10,9 @@ export const ActionSuccessRegister = '[auth] success register';
 export const ActionFailedRegister = '[auth] failed register';
 export const ActionFailedLogin = '[auth] failed register';
 export const RememberMeAction = '[auth] remember me';
-export const ActionNameWasFetched = '[auth] create name';
+export const ActionNameWasFetched = '[auth] name was fetched';
 export const ActionCatchErrorsLogin = '[auth] catch errors';
+export const ActionLoggedOut = '[auth] user has logged out';
 
 export const registerUser = (email, password1, password2) => (dispatch) => {
   dispatch(dispatchEnableLoader());
@@ -73,4 +74,9 @@ export const getUserInfo = () => (dispatch) => {
         payload: data.email,
       });
     });
+};
+
+export const logoutUser = () => (dispatch) => {
+  dispatch({type: ActionLoggedOut});
+  history.push(routes.Login);
 };
