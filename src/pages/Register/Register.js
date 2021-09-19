@@ -6,7 +6,6 @@ import {registerUser} from '../../actions/auth';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Field, Form, Formik} from 'formik';
-// import FormInput from '../../components/elements/FormInput/FormInput';
 import FormImage from '../../components/elements/FormImage/FormImage';
 import FormButton from '../../components/elements/FormButton/FormButton';
 import {history} from '../../services/history';
@@ -72,10 +71,10 @@ export class Register extends React.Component {
                       </div>
 
                     </div>
-                    <div className="mb-3">
+                    <div className={`${non_field_errors && 'is-invalid'}`}></div>
                       {non_field_errors &&
-                      <div className="invalid-feedback">{non_field_errors && non_field_errors[0]}</div>}
-                    </div>
+                      <div className={`invalid-feedback ${non_field_errors || errors?.non_field_errors ? 'is-invalid' : ''}`}>{non_field_errors && non_field_errors[0]}</div>}
+
                     <FormButton
                       text="Register Account"
                       className="btn-primary d-block btn-user w-100"
