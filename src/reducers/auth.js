@@ -6,7 +6,7 @@ import {
   RememberMeAction,
   ActionNameWasFetched,
   ActionCatchErrorsLogin,
-  ActionLoggedOut,
+  ActionLoggedOut, ActionCatchErrorsRegister,
 } from '../actions/auth';
 import {attachTokenToFutureRequests} from '../services/axios';
 
@@ -17,6 +17,7 @@ const getInitialState = () => {
   const initialState = {
     token: window.localStorage.getItem(tokenKey),
     loginErrors: null,
+    registerErrors: null,
     rememberMe: window.localStorage.getItem(rememberMeKey) === 'true',
     userName: '',
   };
@@ -57,6 +58,11 @@ export const auth = (state = getInitialState(), action) => {
       return {
         ...state,
         loginErrors: action.error,
+      };
+      case ActionCatchErrorsRegister:
+      return {
+        ...state,
+        registerErrors: action.error,
       };
     case ActionLoggedOut:
       window.localStorage.setItem(tokenKey, '');

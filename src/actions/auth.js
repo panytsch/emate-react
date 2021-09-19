@@ -12,6 +12,7 @@ export const ActionFailedLogin = '[auth] failed register';
 export const RememberMeAction = '[auth] remember me';
 export const ActionNameWasFetched = '[auth] name was fetched';
 export const ActionCatchErrorsLogin = '[auth] catch errors';
+export const ActionCatchErrorsRegister = '[auth] catch errors register';
 export const ActionLoggedOut = '[auth] user has logged out';
 
 export const registerUser = (email, password1, password2) => (dispatch) => {
@@ -26,6 +27,13 @@ export const registerUser = (email, password1, password2) => (dispatch) => {
           token: data.key,
         });
         history.push(routes.MainLoggedInRoute);
+      }
+    }).catch(function (error) {
+      if (error?.response?.data) {
+        dispatch({
+          type: ActionCatchErrorsRegister,
+          error: error.response.data,
+        });
       }
     })
     .finally(() => {
