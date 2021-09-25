@@ -1,172 +1,186 @@
 import React from 'react';
+import {Formik, Field, Form} from 'formik';
+import * as Yup from 'yup';
 
-export const Profile = () => (
-<>
-  <div className="container-fluid">
-    <h3 className="text-dark mb-4">Profile</h3>
-    <div className="row mb-3">
-      <div className="col-lg-4">
-        <div className="card mb-3">
-          <div className="card-body text-center shadow"><img className="rounded-circle mb-3 mt-4"
-                                                             src="assets/img/dogs/image2.jpeg" width="160" height="160"/>
-            <div className="mb-3">
-              <button className="btn btn-primary btn-sm" type="button">Change Photo</button>
-            </div>
-          </div>
-        </div>
-        <div className="card shadow mb-4">
-          <div className="card-header py-3">
-            <h6 className="text-primary font-weight-bold m-0">Projects</h6>
-          </div>
-          <div className="card-body">
-            <h4 className="small font-weight-bold">Server migration<span className="float-right">20%</span></h4>
-            <div className="progress progress-sm mb-3">
-              <div className="progress-bar bg-danger" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
-                  ><span className="sr-only">20%</span></div>
-            </div>
-            <h4 className="small font-weight-bold">Sales tracking<span className="float-right">40%</span></h4>
-            <div className="progress progress-sm mb-3">
-              <div className="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                   ><span className="sr-only">40%</span></div>
-            </div>
-            <h4 className="small font-weight-bold">Customer Database<span className="float-right">60%</span></h4>
-            <div className="progress progress-sm mb-3">
-              <div className="progress-bar bg-primary" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                   ><span className="sr-only">60%</span></div>
-            </div>
-            <h4 className="small font-weight-bold">Payout Details<span className="float-right">80%</span></h4>
-            <div className="progress progress-sm mb-3">
-              <div className="progress-bar bg-info" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
-                   ><span className="sr-only">80%</span></div>
-            </div>
-            <h4 className="small font-weight-bold">Account setup<span className="float-right">Complete!</span></h4>
-            <div className="progress progress-sm mb-3">
-              <div className="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-                  ><span className="sr-only">100%</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-lg-8">
-        <div className="row mb-3 d-none">
-          <div className="col">
-            <div className="card text-white bg-primary shadow">
-              <div className="card-body">
-                <div className="row mb-2">
-                  <div className="col">
-                    <p className="m-0">Peformance</p>
-                    <p className="m-0"><strong>65.2%</strong></p>
-                  </div>
-                  <div className="col-auto"><i className="fas fa-rocket fa-2x"></i></div>
-                </div>
-                <p className="text-white-50 small m-0"><i className="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-              </div>
-            </div>
-          </div>
-          <div className="col">
-            <div className="card text-white bg-success shadow">
-              <div className="card-body">
-                <div className="row mb-2">
-                  <div className="col">
-                    <p className="m-0">Peformance</p>
-                    <p className="m-0"><strong>65.2%</strong></p>
-                  </div>
-                  <div className="col-auto"><i className="fas fa-rocket fa-2x"></i></div>
-                </div>
-                <p className="text-white-50 small m-0"><i className="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <div className="card shadow mb-3">
-              <div className="card-header py-3">
-                <p className="text-primary m-0 font-weight-bold">User Settings</p>
-              </div>
-              <div className="card-body">
-                <form>
-                  <div className="form-row">
-                    <div className="col">
-                      <div className="form-group"><label htmlFor="username"><strong>Username</strong></label><input
-                        className="form-control" type="text" id="username" placeholder="user.name" name="username"/>
-                      </div>
-                    </div>
-                    <div className="col">
-                      <div className="form-group"><label htmlFor="email"><strong>Email Address</strong></label><input
-                        className="form-control" type="email" id="email" placeholder="user@example.com" name="email"/>
+export const Profile = () => {
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const validationsSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Required'),
+    firstName: Yup.string()
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required'),
+    lastName: Yup.string()
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required'),
+    phoneNumber: Yup.string()
+      .matches(phoneRegExp, 'Phone number is not valid')
+      .required('Required'),
+    passwordOld: Yup.string()
+      .required('No password provided.')
+      .min(8, 'Password is too short - should be 8 chars minimum.')
+      .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
+    passwordNew: Yup.string()
+      .required('No password provided.')
+      .min(8, 'Password is too short - should be 8 chars minimum.')
+      .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
+  });
+  return (
+    <>
+      <Formik initialValues={{
+        username: '',
+      }} validationSchema={validationsSchema} onSubmit={(values => console.log(values))}>
+        {({errors, touched}) => (
+          <Form>
+            <div className="container-fluid">
+              <h3 className="text-dark mb-4">Profile</h3>
+              <div className="row mb-3">
+                <div className="col-lg-4">
+                  <div className="card mb-3">
+                    <div className="card-body text-center shadow"><img className="rounded-circle mb-3 mt-4"
+                                                                       src="assets/img/dogs/image2.jpeg" width="160"
+                                                                       height="160"/>
+                      <div className="mb-3">
+                        <button className="btn btn-primary btn-sm" type="button">Change Photo</button>
                       </div>
                     </div>
                   </div>
-                  <div className="form-row">
+
+                </div>
+                <div className="col-lg-8">
+                  <div className="row mb-3 d-none">
                     <div className="col">
-                      <div className="form-group"><label htmlFor="first_name"><strong>First Name</strong></label><input
-                        className="form-control" type="text" id="first_name" placeholder="John" name="first_name"/></div>
+                      <div className="card text-white bg-primary shadow">
+                        <div className="card-body">
+                          <div className="row mb-2">
+                            <div className="col">
+                              <p className="m-0">Peformance</p>
+                              <p className="m-0"><strong>65.2%</strong></p>
+                            </div>
+                            <div className="col-auto"><i className="fas fa-rocket fa-2x"></i></div>
+                          </div>
+                          <p className="text-white-50 small m-0"><i className="fas fa-arrow-up"></i>&nbsp;5% since last
+                            month</p>
+                        </div>
+                      </div>
                     </div>
                     <div className="col">
-                      <div className="form-group"><label htmlFor="last_name"><strong>Last Name</strong></label><input
-                        className="form-control" type="text" id="last_name" placeholder="Doe" name="last_name"/></div>
+                      <div className="card text-white bg-success shadow">
+                        <div className="card-body">
+                          <div className="row mb-2">
+                            <div className="col">
+                              <p className="m-0">Peformance</p>
+                              <p className="m-0"><strong>65.2%</strong></p>
+                            </div>
+                            <div className="col-auto"><i className="fas fa-rocket fa-2x"></i></div>
+                          </div>
+                          <p className="text-white-50 small m-0"><i className="fas fa-arrow-up"></i>&nbsp;5% since last
+                            month</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="form-group">
-                    <button className="btn btn-primary btn-sm" type="submit">Save Settings</button>
+                  <div className="row">
+                    <div className="col">
+                      <div className="card shadow mb-3">
+                        <div className="card-header py-3">
+                          <p className="text-primary m-0 font-weight-bold">User Settings</p>
+                        </div>
+                        <div className="card-body">
+                          <form>
+                            <div className="form-row">
+                              <div className="col">
+                                <div className="form-group"><label htmlFor="username"><strong>firstName</strong></label>
+                                  <Field
+                                    className={`form-control ${errors.firstName ? 'is-invalid' : ''}`} type="text"
+                                    id="username" placeholder="firstName"
+                                    name="firstName"/>
+                                  {errors.firstName && touched.firstName ? (
+                                    <div className="invalid-feedback">{errors.firstName}</div>
+                                  ) : null}
+                                </div>
+                              </div>
+                              <div className="col">
+                                <div className="form-group"><label htmlFor="lastName"><strong>lastName</strong></label>
+                                  <Field
+                                    className={`form-control ${errors.lastName ? 'is-invalid' : ''}`} type="text"
+                                    id="lastName" placeholder="lastName"
+                                    name="lastName"/>
+                                  {errors.lastName && touched.lastName ? (
+                                    <div className="invalid-feedback">{errors.lastName}</div>
+                                  ) : null}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="form-row">
+                              <div className="col">
+                                <div className="form-group"><label htmlFor="email"><strong>email</strong></label>
+                                  <Field
+                                    className={`form-control ${errors?.email ? 'is-invalid' : ''}`} type="email"
+                                    id="email" placeholder="email"
+                                    name="email"/>
+                                  {errors.email && touched.email ? (
+                                    <div className="invalid-feedback">{errors.email}</div>
+                                  ) : null}
+                                </div>
+                              </div>
+                              <div className="col">
+                                <div className="form-group"><label
+                                  htmlFor="phoneNumber"><strong>phoneNumber</strong></label>
+                                  <Field
+                                    className={`form-control ${errors?.phoneNumber ? 'is-invalid' : ''}`} type="phone"
+                                    id="phoneNumber" placeholder="phoneNumber"
+                                    name="phoneNumber"/>
+                                  {errors.phoneNumber && touched.phoneNumber ? (
+                                    <div className="invalid-feedback">{errors.phoneNumber}</div>
+                                  ) : null}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="form-row">
+                              <div className="col">
+                                <div className="form-group"><label
+                                  htmlFor="username"><strong>passwordOld</strong></label>
+                                  <Field
+                                    className={`form-control ${errors.passwordOld ? 'is-invalid' : ''}`} type="password"
+                                    id="passwordOld" placeholder="passwordOld"
+                                    autocomplete="new-password"
+                                    name="passwordOld"/>
+                                  {errors.passwordOld && touched.passwordOld ? (
+                                    <div className="invalid-feedback">{errors.passwordOld}</div>
+                                  ) : null}
+                                </div>
+                              </div>
+                              <div className="col">
+                                <div className="form-group"><label
+                                  htmlFor="lastName"><strong>passwordNew</strong></label>
+                                  <Field
+                                    className={`form-control ${errors.passwordNew ? 'is-invalid' : ''}`} type="password"
+                                    id="passwordNew" placeholder="passwordNew"
+                                    autocomplete="off"
+                                    name="passwordNew"/>
+                                  {errors.passwordNew && touched.passwordNew ? (
+                                    <div className="invalid-feedback">{errors.passwordNew}</div>
+                                  ) : null}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="form-group">
+                              <button className="btn btn-primary btn-sm" type="submit">Save Settings</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </form>
+                </div>
               </div>
+
             </div>
-            <div className="card shadow">
-              <div className="card-header py-3">
-                <p className="text-primary m-0 font-weight-bold">Contact Settings</p>
-              </div>
-              <div className="card-body">
-                <form>
-                  <div className="form-group"><label htmlFor="address"><strong>Address</strong></label><input
-                    className="form-control" type="text" id="address" placeholder="Sunset Blvd, 38" name="address"/>
-                  </div>
-                  <div className="form-row">
-                    <div className="col">
-                      <div className="form-group"><label htmlFor="city"><strong>City</strong></label><input
-                        className="form-control" type="text" id="city" placeholder="Los Angeles" name="city"/></div>
-                    </div>
-                    <div className="col">
-                      <div className="form-group"><label htmlFor="country"><strong>Country</strong></label><input
-                        className="form-control" type="text" id="country" placeholder="USA" name="country"/></div>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <button className="btn btn-primary btn-sm" type="submit">Save&nbsp;Settings</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="card shadow mb-5">
-      <div className="card-header py-3">
-        <p className="text-primary m-0 font-weight-bold">Forum Settings</p>
-      </div>
-      <div className="card-body">
-        <div className="row">
-          <div className="col-md-6">
-            <form>
-              <div className="form-group"><label htmlFor="signature"><strong>Signature</strong><br/></label><textarea
-                className="form-control" id="signature" rows="4" name="signature"></textarea></div>
-              <div className="form-group">
-                <div className="custom-control custom-switch"><input className="custom-control-input" type="checkbox"
-                                                                     id="formCheck-1"/><label
-                  className="custom-control-label" htmlFor="formCheck-1"><strong>Notify me about new
-                  replies</strong></label></div>
-              </div>
-              <div className="form-group">
-                <button className="btn btn-primary btn-sm" type="submit">Save Settings</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</>
-)
+          </Form>
+        )}</Formik>
+    </>
+  );
+};
+
